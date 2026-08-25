@@ -1,7 +1,7 @@
 {
-  "name": "@openreachtech/todo-fulfill-here",
+  "name": "@openreachtech/hora-skills-furo",
   "version": "0.0.0",
-  "description": "TODO: fulfill here",
+  "description": "Distributes the furo frontend skills used to develop with Hora Kit.",
   "type": "module",
   "main": "index.js",
   "files": [
@@ -10,6 +10,12 @@
     "!types/env/**"
   ],
   "types": "./types/index.d.ts",
+  "keywords": [
+    "hora",
+    "hora-kit",
+    "ai",
+    "furo"
+  ],
   "scripts": {
     "l": "npm run lint",
     "lint": "eslint .",
@@ -17,14 +23,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openreachtech/todo-fulfill-here.git"
+    "url": "git+https://github.com/openreachtech/hora-skills-furo.git"
   },
   "author": "Open Reach Tech Inc.",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/openreachtech/todo-fulfill-here/issues"
+    "url": "https://github.com/openreachtech/hora-skills-furo/issues"
   },
-  "homepage": "https://github.com/openreachtech/todo-fulfill-here#readme",
+  "homepage": "https://github.com/openreachtech/hora-skills-furo#readme",
   "dependencies": {
   },
   "devDependencies": {
