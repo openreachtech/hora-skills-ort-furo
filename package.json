@@ -1,7 +1,7 @@
 {
   "name": "@openreachtech/hora-skills-furo",
   "version": "0.0.0",
-  "description": "TODO: fulfill here",
+  "description": "Distributes the furo frontend skills used to develop with Hora Kit.",
   "type": "module",
   "main": "index.js",
   "files": [
