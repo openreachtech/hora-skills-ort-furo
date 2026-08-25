@@ -8,6 +8,9 @@
     "docs/",
     "lib/"
   ],
+  "bin": {
+    "hora-skills-furo": "lib/equip/hora-skills-furo.js"
+  },
   "keywords": [
     "hora",
     "hora-kit",
