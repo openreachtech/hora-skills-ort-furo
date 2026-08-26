@@ -75,7 +75,7 @@ describe('SkillsInstaller', () => {
           {
             input: {
               manifestFile: SkillsManifestFile.create({
-                filePath: '/consumer/.hora/hora-skills-furo.json',
+                filePath: '/consumer/.hora/hora-skills-ort-furo.json',
                 installationPath: '.claude/skills',
               }),
             },
@@ -83,7 +83,7 @@ describe('SkillsInstaller', () => {
           {
             input: {
               manifestFile: SkillsManifestFile.create({
-                filePath: '.hora/hora-skills-furo.json',
+                filePath: '.hora/hora-skills-ort-furo.json',
                 installationPath: 'tools/skills',
               }),
             },
@@ -144,7 +144,7 @@ describe('SkillsInstaller', () => {
             sourceDirectoryPath: '/package/dist/skills',
           },
           expected: {
-            filePath: '/consumer/.hora/hora-skills-furo.json',
+            filePath: '/consumer/.hora/hora-skills-ort-furo.json',
             installationPath: '.claude/skills',
           },
         },
@@ -155,7 +155,7 @@ describe('SkillsInstaller', () => {
             sourceDirectoryPath: '/package/dist/skills',
           },
           expected: {
-            filePath: '/tmp/.hora/hora-skills-furo.json',
+            filePath: '/tmp/.hora/hora-skills-ort-furo.json',
             installationPath: 'skills',
           },
         },
@@ -232,7 +232,7 @@ describe('SkillsInstaller', () => {
         expect(received)
           .toEqual([
             '.hora',
-            'hora-skills-furo.json',
+            'hora-skills-ort-furo.json',
           ])
       })
     })
@@ -266,14 +266,14 @@ describe('SkillsInstaller', () => {
             workingDirectoryPath: '/consumer',
             targetDirectoryPath: '/consumer/.claude/skills',
           },
-          expected: '/consumer/.hora/hora-skills-furo.json',
+          expected: '/consumer/.hora/hora-skills-ort-furo.json',
         },
         {
           input: {
             workingDirectoryPath: '/tmp',
             targetDirectoryPath: '/tmp/skills/',
           },
-          expected: '/tmp/.hora/hora-skills-furo.json',
+          expected: '/tmp/.hora/hora-skills-ort-furo.json',
         },
       ]
 
@@ -365,12 +365,12 @@ describe('SkillsInstaller', () => {
       const cases = [
         {
           input: {
-            skillName: 'hf-naming',
+            skillName: 'hof-naming',
           },
         },
         {
           input: {
-            skillName: 'hf-cp-table',
+            skillName: 'hof-cp-table',
           },
         },
         {
@@ -417,7 +417,7 @@ describe('SkillsInstaller', () => {
         },
         {
           input: {
-            skillName: 'hf-naming/SKILL.md',
+            skillName: 'hof-naming/SKILL.md',
           },
         },
         {
@@ -487,15 +487,15 @@ describe('SkillsInstaller', () => {
         {
           override: {
             removedSkillNames: [
-              'hf-cp-table',
+              'hof-cp-table',
             ],
             installedSkillNames: [
-              'hf-query-resolver',
+              'hof-query-resolver',
             ],
           },
           expected: {
             skillNames: [
-              'hf-query-resolver',
+              'hof-query-resolver',
             ],
           },
         },
@@ -537,18 +537,18 @@ describe('SkillsInstaller', () => {
         {
           override: {
             removedSkillNames: [
-              'hf-cp-table',
+              'hof-cp-table',
             ],
             installedSkillNames: [
-              'hf-query-resolver',
+              'hof-query-resolver',
             ],
           },
           expected: {
             removedSkillNames: [
-              'hf-cp-table',
+              'hof-cp-table',
             ],
             installedSkillNames: [
-              'hf-query-resolver',
+              'hof-query-resolver',
             ],
           },
         },
@@ -556,15 +556,15 @@ describe('SkillsInstaller', () => {
           override: {
             removedSkillNames: [],
             installedSkillNames: [
-              'hf-naming',
-              'hf-jsdoc',
+              'hof-naming',
+              'hof-jsdoc',
             ],
           },
           expected: {
             removedSkillNames: [],
             installedSkillNames: [
-              'hf-naming',
-              'hf-jsdoc',
+              'hof-naming',
+              'hof-jsdoc',
             ],
           },
         },
@@ -600,20 +600,20 @@ describe('SkillsInstaller', () => {
         {
           override: {
             recordedSkillNames: [
-              'hf-query-resolver',
-              'hf-stub-api',
+              'hof-query-resolver',
+              'hof-stub-api',
             ],
           },
           expected: [
             [
-              '/consumer/.claude/skills/hf-query-resolver',
+              '/consumer/.claude/skills/hof-query-resolver',
               {
                 recursive: true,
                 force: true,
               },
             ],
             [
-              '/consumer/.claude/skills/hf-stub-api',
+              '/consumer/.claude/skills/hof-stub-api',
               {
                 recursive: true,
                 force: true,
@@ -650,11 +650,11 @@ describe('SkillsInstaller', () => {
         {
           override: {
             recordedSkillNames: [
-              'hf-query-resolver',
+              'hof-query-resolver',
             ],
           },
           expected: [
-            'hf-query-resolver',
+            'hof-query-resolver',
           ],
         },
         {
@@ -690,28 +690,28 @@ describe('SkillsInstaller', () => {
           override: {
             recordedSkillNames: [],
             distributedSkillNames: [
-              'hf-query-resolver',
-              'hf-naming',
+              'hof-query-resolver',
+              'hof-naming',
             ],
             directoryNames: [
-              'hf-naming',
-              'hf-own-skill',
+              'hof-naming',
+              'hof-own-skill',
               'my-own-skill',
             ],
           },
           expected: [
-            'hf-naming',
+            'hof-naming',
           ],
         },
         {
           override: {
             recordedSkillNames: [],
             distributedSkillNames: [
-              'hf-query-resolver',
-              'hf-naming',
+              'hof-query-resolver',
+              'hof-naming',
             ],
             directoryNames: [
-              'hf-own-skill',
+              'hof-own-skill',
               'my-own-skill',
             ],
           },
@@ -749,12 +749,12 @@ describe('SkillsInstaller', () => {
           override: {
             recordedSkillNames: [
               '../../../canary',
-              'hf-naming',
+              'hof-naming',
             ],
           },
           expected: [
             [
-              '/consumer/.claude/skills/hf-naming',
+              '/consumer/.claude/skills/hof-naming',
               {
                 recursive: true,
                 force: true,
@@ -799,36 +799,36 @@ describe('SkillsInstaller', () => {
         {
           override: {
             recordedSkillNames: [
-              'hf-cp-table',
+              'hof-cp-table',
             ],
             distributedSkillNames: [
-              'hf-query-resolver',
-              'hf-naming',
+              'hof-query-resolver',
+              'hof-naming',
             ],
             directoryNames: [
-              'hf-naming',
-              'hf-own-skill',
+              'hof-naming',
+              'hof-own-skill',
             ],
           },
           expected: [
-            'hf-cp-table',
-            'hf-naming',
+            'hof-cp-table',
+            'hof-naming',
           ],
         },
         {
           override: {
             recordedSkillNames: [
-              'hf-naming',
+              'hof-naming',
             ],
             distributedSkillNames: [
-              'hf-naming',
+              'hof-naming',
             ],
             directoryNames: [
-              'hf-naming',
+              'hof-naming',
             ],
           },
           expected: [
-            'hf-naming',
+            'hof-naming',
           ],
         },
         {
@@ -836,7 +836,7 @@ describe('SkillsInstaller', () => {
             recordedSkillNames: [],
             distributedSkillNames: [],
             directoryNames: [
-              'hf-own-skill',
+              'hof-own-skill',
             ],
           },
           expected: [],
@@ -869,14 +869,14 @@ describe('SkillsInstaller', () => {
         {
           override: {
             recordedSkillNames: [
-              'hf-naming',
+              'hof-naming',
               '../../../canary',
             ],
             distributedSkillNames: [],
             directoryNames: [],
           },
           expected: [
-            'hf-naming',
+            'hof-naming',
           ],
         },
         {
@@ -885,7 +885,7 @@ describe('SkillsInstaller', () => {
               '..',
               '.',
               '',
-              'hf-naming/SKILL.md',
+              'hof-naming/SKILL.md',
             ],
             distributedSkillNames: [],
             directoryNames: [],
@@ -924,40 +924,40 @@ describe('SkillsInstaller', () => {
         {
           override: {
             distributedSkillNames: [
-              'hf-query-resolver',
-              'hf-jsdoc',
-              'hf-naming',
+              'hof-query-resolver',
+              'hof-jsdoc',
+              'hof-naming',
             ],
             directoryNames: [
-              'hf-naming',
-              'hf-own-skill',
+              'hof-naming',
+              'hof-own-skill',
               'my-own-skill',
             ],
           },
           expected: [
-            'hf-naming',
+            'hof-naming',
           ],
         },
         {
           override: {
             distributedSkillNames: [
-              'hf-query-resolver',
-              'hf-naming',
+              'hof-query-resolver',
+              'hof-naming',
             ],
             directoryNames: [
-              'hf-query-resolver',
-              'hf-naming',
+              'hof-query-resolver',
+              'hof-naming',
             ],
           },
           expected: [
-            'hf-query-resolver',
-            'hf-naming',
+            'hof-query-resolver',
+            'hof-naming',
           ],
         },
         {
           override: {
             distributedSkillNames: [
-              'hf-naming',
+              'hof-naming',
             ],
             directoryNames: [],
           },
@@ -994,11 +994,11 @@ describe('SkillsInstaller', () => {
           override: {
             dirents: [
               {
-                name: 'hf-cp-table',
+                name: 'hof-cp-table',
                 isDirectory: () => true,
               },
               {
-                name: 'hf-query-resolver',
+                name: 'hof-query-resolver',
                 isDirectory: () => true,
               },
               {
@@ -1008,8 +1008,8 @@ describe('SkillsInstaller', () => {
             ],
           },
           expected: [
-            'hf-cp-table',
-            'hf-query-resolver',
+            'hof-cp-table',
+            'hof-query-resolver',
           ],
         },
         {
@@ -1071,15 +1071,15 @@ describe('SkillsInstaller', () => {
       const cases = [
         {
           input: {
-            skillName: 'hf-query-resolver',
+            skillName: 'hof-query-resolver',
           },
-          expected: '/consumer/.claude/skills/hf-query-resolver',
+          expected: '/consumer/.claude/skills/hof-query-resolver',
         },
         {
           input: {
-            skillName: 'hf-naming',
+            skillName: 'hof-naming',
           },
-          expected: '/consumer/.claude/skills/hf-naming',
+          expected: '/consumer/.claude/skills/hof-naming',
         },
       ]
 
@@ -1105,15 +1105,15 @@ describe('SkillsInstaller', () => {
       const cases = [
         {
           input: {
-            skillName: 'hf-query-resolver',
+            skillName: 'hof-query-resolver',
           },
-          expected: '/package/dist/skills/hf-query-resolver',
+          expected: '/package/dist/skills/hof-query-resolver',
         },
         {
           input: {
-            skillName: 'hf-naming',
+            skillName: 'hof-naming',
           },
-          expected: '/package/dist/skills/hf-naming',
+          expected: '/package/dist/skills/hof-naming',
         },
       ]
 
@@ -1140,12 +1140,12 @@ describe('SkillsInstaller', () => {
         {
           override: {
             distributedSkillNames: [
-              'hf-query-resolver',
+              'hof-query-resolver',
             ],
           },
           expected: [
-            '/package/dist/skills/hf-query-resolver',
-            '/consumer/.claude/skills/hf-query-resolver',
+            '/package/dist/skills/hof-query-resolver',
+            '/consumer/.claude/skills/hof-query-resolver',
             {
               recursive: true,
             },
@@ -1154,12 +1154,12 @@ describe('SkillsInstaller', () => {
         {
           override: {
             distributedSkillNames: [
-              'hf-naming',
+              'hof-naming',
             ],
           },
           expected: [
-            '/package/dist/skills/hf-naming',
-            '/consumer/.claude/skills/hf-naming',
+            '/package/dist/skills/hof-naming',
+            '/consumer/.claude/skills/hof-naming',
             {
               recursive: true,
             },
@@ -1290,13 +1290,13 @@ describe('SkillsInstaller', () => {
           },
           input: {
             skillNames: [
-              'hf-query-resolver',
+              'hof-query-resolver',
             ],
           },
           expected: {
             version: '0.0.1',
             skillNames: [
-              'hf-query-resolver',
+              'hof-query-resolver',
             ],
           },
         },
@@ -1411,12 +1411,12 @@ describe('SkillsInstaller', () => {
         {
           override: {
             removedSkillNames: [
-              'hf-query-resolver',
+              'hof-query-resolver',
             ],
           },
           expected: {
             removedSkillNames: [
-              'hf-query-resolver',
+              'hof-query-resolver',
             ],
           },
         },
