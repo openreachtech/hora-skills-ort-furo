@@ -1,6 +1,6 @@
 ---
 name: flatten
-description: "Repository-specific build convention: kit/skills/ holds exactly one domain directory (frontend/), containing one level of skill folders named hf-*, and the build copies those folders into dist/skills/ unchanged — dropping only the domain level — to produce the flat .claude/skills/ layout that consuming repositories install. Use when rebuilding the dist/ output, or when adding, renaming or placing a skill under kit/skills/."
+description: "Repository-specific build convention: kit/skills/ holds exactly one domain directory (frontend/), containing one level of skill folders named hof-*, and the build copies those folders into dist/skills/ unchanged — dropping only the domain level — to produce the flat .claude/skills/ layout that consuming repositories install. Use when rebuilding the dist/ output, or when adding, renaming or placing a skill under kit/skills/."
 ---
 
 # Flatten
@@ -15,9 +15,9 @@ Consuming repositories install skills as a single flat list directly under `.cla
 
 | Domain directory | Prefix | What it holds |
 |---|---|---|
-| `frontend/` | `hf-` | Furo/Nuxt apps |
+| `frontend/` | `hof-` | Furo/Nuxt apps |
 
-Keeping the domain level in a library that has one domain is deliberate: it is the layout its sibling libraries use — `hora-skills-ort-js-core` (`core/`, `hc-`) and `hora-skills-renchan` (`backend/`, `hb-`) — so a skill moves between them by moving its folder, and the build and the audit read the same tree in every one of them.
+Keeping the domain level in a library that has one domain is deliberate: it is the layout its sibling libraries use — `hora-skills-ort-core` (`core/`, `hoc-`) and `hora-skills-ort-renchan` (`backend/`, `hor-`) — so a skill moves between them by moving its folder, and the build and the audit read the same tree in every one of them.
 
 The domain directory contains skill folders and nothing else. Every skill is therefore at exactly this depth:
 
@@ -32,12 +32,12 @@ A skill folder may hold its own subdirectories (`references/`, `scripts/`), but 
 A skill folder's name is the skill's `name:`, and the folder name it gets under `dist/skills/`, all one string:
 
 ```
-kit/skills/frontend/hf-cp-table/   name: hf-cp-table   →   dist/skills/hf-cp-table/
+kit/skills/frontend/hof-cp-table/   name: hof-cp-table   →   dist/skills/hof-cp-table/
 ```
 
-The prefix is part of the name: the skill is invoked as `/hf-cp-table`. The `h` stands for **hora**, from Hora Kit — the Open Reach Tech product this skill library is part of — and the second character is the domain: `f` for `frontend`, against `c` for the ORT JavaScript core library and `b` for the renchan backend one.
+The prefix is part of the name: the skill is invoked as `/hof-cp-table`. The `ho` stands for **hora**, from Hora Kit — the Open Reach Tech product this skill library is part of — and the third character names the library: `f` for this library, against `c` for the ORT JavaScript core one and `r` for the renchan backend one.
 
-Two characters buy two things. A consuming repository installs these skills side by side with its own, and with the sibling libraries' — a project equips whichever domains it works in — all in one flat list, and the prefix is what tells a reader at a glance which skills came from this library. And because every prefix belongs to exactly one library and a filesystem cannot hold two folders of one name in one directory, no two installed skills can end up with the same name — the flat namespace is protected by the source layout itself, with nothing to check.
+Those three characters buy two things. A consuming repository installs these skills side by side with its own, and with the sibling libraries' — a project equips whichever domains it works in — all in one flat list, and the prefix is what tells a reader at a glance which skills came from this library. And because every prefix belongs to exactly one library and a filesystem cannot hold two folders of one name in one directory, no two installed skills can end up with the same name — the flat namespace is protected by the source layout itself, with nothing to check.
 
 ## The build
 
@@ -50,7 +50,7 @@ It validates the whole source tree first (below), then deletes `dist/skills/` ou
 Each skill folder is then copied to `dist/skills/<folder name>/` **byte for byte**. Nothing is rewritten:
 
 - The `name:` line stays. The field and the folder name are the same string by construction, so there is no second, divergent source of truth to remove.
-- No source note is appended. The source path is `kit/skills/frontend/<name>/`, and the prefix names the domain, so an installed `hf-cp-table/` already says where it came from. A footer repeating it would be text to maintain that carries nothing.
+- No source note is appended. The source path is `kit/skills/frontend/<name>/`, and the prefix names the domain, so an installed `hof-cp-table/` already says where it came from. A footer repeating it would be text to maintain that carries nothing.
 
 Validation runs before the deletion, so a source tree that cannot produce a valid flat namespace leaves the previous output untouched rather than half-replaced. Every problem found is reported at once, not one per run:
 
@@ -60,8 +60,8 @@ Validation runs before the deletion, so a source tree that cannot produce a vali
 | A non-directory entry directly under the domain | Only skill folders belong there. |
 | A skill folder with no `SKILL.md` | There is nothing to install. |
 | A `SKILL.md` below a skill folder's top level | The one-level layout is the guarantee that the folder name is the skill name; a nested skill would have no name of its own. |
-| A folder name that is not `hc-`/`hb-`/`hf-` followed by 1–61 characters of `[a-z0-9-]` | The name is joined onto `dist/skills/` as a path segment, so a value containing `/` or `..` would put the folder somewhere other than directly under `dist/skills/`. 64 characters is the limit an installed skill name has to stay within, which the 3-character prefix leaves 61 of. |
-| A prefix that does not match the folder's domain (`hb-` under `frontend/`) | The prefix is the domain, so a mismatch makes the name lie about where the skill lives — and it claims a name that belongs to the renchan backend library. |
+| A folder name that is not `hoc-`/`hor-`/`hof-` followed by 1–60 characters of `[a-z0-9-]` | The name is joined onto `dist/skills/` as a path segment, so a value containing `/` or `..` would put the folder somewhere other than directly under `dist/skills/`. 64 characters is the limit an installed skill name has to stay within, which the 4-character prefix leaves 60 of. |
+| A prefix that does not match the folder's domain (`hor-` under `frontend/`) | The prefix is the domain, so a mismatch makes the name lie about where the skill lives — and it claims a name that belongs to the renchan backend library. |
 | A `SKILL.md` with no parsable `name:` | Nothing declares what the installed skill is called. |
 | A `name:` that differs from its folder name | This is the check the whole scheme rests on. The two are one string by convention; only an enforced comparison keeps them one string in fact. |
 
@@ -77,7 +77,7 @@ The existing names came from the source tree as it was before this layout: a nes
 
 | Convention | Examples |
 |---|---|
-| Drop structural words that only place a skill within its domain (`components`, `shared`, `nuxt-vue`) | `hf-animation`, `hf-modules`, `hf-prohibits` |
-| Keep a classifying word when it is what a reader would search for | `hf-css-units`, `hf-error-handling` |
-| Prefer a short marker over a spelled-out grouping word | `hf-cp-table` (component), `hf-css-props-naming` (CSS custom properties) |
-| Two or more words read better as a command name than one | `hf-acceptance-review` over `hf-review` |
+| Drop structural words that only place a skill within its domain (`components`, `shared`, `nuxt-vue`) | `hof-animation`, `hof-modules`, `hof-prohibits` |
+| Keep a classifying word when it is what a reader would search for | `hof-css-units`, `hof-error-handling` |
+| Prefer a short marker over a spelled-out grouping word | `hof-cp-table` (component), `hof-css-props-naming` (CSS custom properties) |
+| Two or more words read better as a command name than one | `hof-acceptance-review` over `hof-review` |
