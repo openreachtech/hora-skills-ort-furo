@@ -1,5 +1,5 @@
 {
-  "name": "@openreachtech/hora-skills-furo",
+  "name": "@openreachtech/hora-skills-ort-furo",
   "version": "0.0.0",
   "description": "Distributes the furo frontend skills used to develop with Hora Kit.",
   "type": "module",
@@ -9,7 +9,7 @@
     "lib/"
   ],
   "bin": {
-    "hora-skills-furo": "lib/equip/hora-skills-furo.js"
+    "hora-skills-ort-furo": "lib/equip/hora-skills-ort-furo.js"
   },
   "keywords": [
     "hora",
@@ -27,14 +27,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openreachtech/hora-skills-furo.git"
+    "url": "git+https://github.com/openreachtech/hora-skills-ort-furo.git"
   },
   "author": "Open Reach Tech Inc.",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/openreachtech/hora-skills-furo/issues"
+    "url": "https://github.com/openreachtech/hora-skills-ort-furo/issues"
   },
-  "homepage": "https://github.com/openreachtech/hora-skills-furo#readme",
+  "homepage": "https://github.com/openreachtech/hora-skills-ort-furo#readme",
   "dependencies": {
   },
   "devDependencies": {
