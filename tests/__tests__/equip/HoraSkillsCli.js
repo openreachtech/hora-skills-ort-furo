@@ -363,7 +363,7 @@ describe('HoraSkillsCli', () => {
           override: {
             installResult: {
               installedSkillNames: [
-                'hf-query-resolver',
+                'hof-query-resolver',
               ],
               removedSkillNames: [],
             },
@@ -374,11 +374,11 @@ describe('HoraSkillsCli', () => {
           override: {
             installResult: {
               installedSkillNames: [
-                'hf-naming',
-                'hf-jsdoc',
+                'hof-naming',
+                'hof-jsdoc',
               ],
               removedSkillNames: [
-                'hf-css',
+                'hof-css',
               ],
             },
           },
@@ -1166,7 +1166,7 @@ describe('HoraSkillsCli', () => {
               'install',
             ],
           },
-          expected: '/consumer/.hora/hora-skills-furo.json',
+          expected: '/consumer/.hora/hora-skills-ort-furo.json',
         },
         {
           input: {
@@ -1176,7 +1176,7 @@ describe('HoraSkillsCli', () => {
               'tools/skills',
             ],
           },
-          expected: '/consumer/.hora/hora-skills-furo.json',
+          expected: '/consumer/.hora/hora-skills-ort-furo.json',
         },
       ]
 
@@ -1206,17 +1206,17 @@ describe('HoraSkillsCli', () => {
             ],
           },
           expected: [
-            '/consumer/.hora/hora-skills-furo.json',
+            '/consumer/.hora/hora-skills-ort-furo.json',
           ],
         },
         {
           override: {
             linkedPaths: [
-              '/consumer/.hora/hora-skills-furo.json',
+              '/consumer/.hora/hora-skills-ort-furo.json',
             ],
           },
           expected: [
-            '/consumer/.hora/hora-skills-furo.json',
+            '/consumer/.hora/hora-skills-ort-furo.json',
           ],
         },
         {
@@ -1254,10 +1254,10 @@ describe('HoraSkillsCli', () => {
         {
           override: {
             linkedManifestFilePaths: [
-              '/consumer/.hora/hora-skills-furo.json',
+              '/consumer/.hora/hora-skills-ort-furo.json',
             ],
           },
-          expected: '/consumer/.hora/hora-skills-furo.json is reached through a symbolic link.',
+          expected: '/consumer/.hora/hora-skills-ort-furo.json is reached through a symbolic link.',
         },
       ]
 
@@ -1297,7 +1297,7 @@ describe('HoraSkillsCli', () => {
         {
           override: {
             distributedSkillNames: [
-              'hf-query-resolver',
+              'hof-query-resolver',
             ],
           },
           expected: '1 skills distributed',
@@ -1305,8 +1305,8 @@ describe('HoraSkillsCli', () => {
         {
           override: {
             distributedSkillNames: [
-              'hf-query-resolver',
-              'hf-stub-api',
+              'hof-query-resolver',
+              'hof-stub-api',
             ],
           },
           expected: '2 skills distributed',
@@ -1348,7 +1348,7 @@ describe('HoraSkillsCli', () => {
           override: {
             uninstallResult: {
               removedSkillNames: [
-                'hf-query-resolver',
+                'hof-query-resolver',
               ],
             },
           },
