@@ -10,7 +10,7 @@ This package ships **skills only** — there is no library to `import`, and the 
 
 | Package | Prefix | Domain | Skills |
 | :-- | :-- | :-- | --: |
-| `@openreachtech/hora-skills-ort-core` | `hoc-` | `core` | 35 |
+| `@openreachtech/hora-skills-ort-core` | `hoc-` | `core` | 39 |
 | `@openreachtech/hora-skills-ort-renchan` | `hor-` | `backend` | 31 |
 | `@openreachtech/hora-skills-ort-furo` (this one) | `hof-` | `frontend` | 46 |
 
