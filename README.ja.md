@@ -1,6 +1,8 @@
 # @openreachtech/hora-skills-ort-furo
 
-Hora Kit で開発するための Furo/Nuxt フロントエンドスキルを配布するパッケージです。
+*[English](https://github.com/openreachtech/hora-skills-ort-furo/blob/main/README.md)*
+
+Furo/Nuxt フロントエンドスキルを配布するパッケージです。単体でどのリポジトリにも導入でき、Hora Kit ではそのスキルライブラリの 1 つとして装備されます。
 
 ## コンセプト
 
@@ -10,9 +12,10 @@ Hora Kit で開発するための Furo/Nuxt フロントエンドスキルを配
 
 | パッケージ | プレフィックス | ドメイン | スキル数 |
 | :-- | :-- | :-- | --: |
-| `@openreachtech/hora-skills-ort-core` | `hoc-` | `core` | 35 |
+| `@openreachtech/hora-skills-ort-core` | `hoc-` | `core` | 39 |
 | `@openreachtech/hora-skills-ort-renchan` | `hor-` | `backend` | 31 |
 | `@openreachtech/hora-skills-ort-furo`(このパッケージ) | `hof-` | `frontend` | 46 |
+| `@openreachtech/hora-skills-ort-support` | `hos-` | `support` | 3 |
 
 [**スキルカタログ**](https://github.com/openreachtech/hora-skills-ort-furo/blob/main/docs/skills.ja.md) ([English](https://github.com/openreachtech/hora-skills-ort-furo/blob/main/docs/skills.md)) — このパッケージに収録された全スキルの一覧と概要(1〜2 行)を、呼び出しコマンド名で並べています。
 
@@ -54,7 +57,7 @@ npx --no hora-skills-ort-furo install
 
 ### 複数のドメインを入れる
 
-3 つのパッケージはいずれも同じ `.claude/skills/` に配置し、それぞれが自分の配置内容を `.hora/<パッケージ名>.json` に記録します。したがって、ある実行が削除するのはそのパッケージが配置したものだけで、他の 2 つには手を触れません。
+4 つのパッケージはいずれも同じ `.claude/skills/` に配置し、それぞれが自分の配置内容を `.hora/<パッケージ名>.json` に記録します。したがって、ある実行が削除するのはそのパッケージが配置したものだけで、他には手を触れません。
 
 ```json
 {
