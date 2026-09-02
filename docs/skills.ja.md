@@ -89,3 +89,14 @@
 | :-- | :-- |
 | `hof-acceptance-review` | 実装後にアプリ全体を受入観点でレビューします。バックエンドの全操作が UI から到達可能か、エンティティごとの CRUD が揃っているか、操作要素が実際に機能するか、失敗と待ちを正直に伝えているか。 |
 | `hof-e2e-test-specification` | E2E テスト仕様書の作成と保守。API の面から導いた「プロダクトが満たすべきこと」をフローごとに列挙した永続的なリストで、操作手順(how)は書きません。 |
+---
+
+## 導入
+
+```sh
+npm install -D @openreachtech/hora-skills-ort-furo
+npx --no hora-skills-ort-furo install
+```
+
+`postinstall` フックの宣言、複数ドメインを同じ `.claude/skills/` に入れる方法、配置を最新に保つ方法は [README](https://github.com/openreachtech/hora-skills-ort-furo/blob/main/README.ja.md) にあります。
+

@@ -89,3 +89,14 @@ Each skill lives at `kit/skills/frontend/<name>/`, one level under the domain di
 | :-- | :-- |
 | `hof-acceptance-review` | Post-implementation acceptance review of a whole app — is every backend operation reachable from the UI, is CRUD complete per entity, do affordances act, are failures and waits told truthfully. |
 | `hof-e2e-test-specification` | Author and maintain the E2E test specification: the durable, flow-by-flow list of what must be true of the product, derived from the API surface. States what, never how to click it. |
+---
+
+## Installing them
+
+```sh
+npm install -D @openreachtech/hora-skills-ort-furo
+npx --no hora-skills-ort-furo install
+```
+
+The [README](https://github.com/openreachtech/hora-skills-ort-furo/blob/main/README.md) covers the `postinstall` hook, installing more than one domain into the same `.claude/skills/`, and keeping an installation current.
+
