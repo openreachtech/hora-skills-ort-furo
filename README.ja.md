@@ -10,7 +10,7 @@ Hora Kit で開発するための Furo/Nuxt フロントエンドスキルを配
 
 | パッケージ | プレフィックス | ドメイン | スキル数 |
 | :-- | :-- | :-- | --: |
-| `@openreachtech/hora-skills-ort-core` | `hoc-` | `core` | 35 |
+| `@openreachtech/hora-skills-ort-core` | `hoc-` | `core` | 39 |
 | `@openreachtech/hora-skills-ort-renchan` | `hor-` | `backend` | 31 |
 | `@openreachtech/hora-skills-ort-furo`(このパッケージ) | `hof-` | `frontend` | 46 |
 
