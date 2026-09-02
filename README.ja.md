@@ -1,6 +1,6 @@
 # @openreachtech/hora-skills-ort-furo
 
-Hora Kit で開発するための Furo/Nuxt フロントエンドスキルを配布するパッケージです。
+Furo/Nuxt フロントエンドスキルを配布するパッケージです。単体でどのリポジトリにも導入でき、Hora Kit ではそのスキルライブラリの 1 つとして装備されます。
 
 ## コンセプト
 

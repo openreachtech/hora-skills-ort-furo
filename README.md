@@ -1,6 +1,6 @@
 # @openreachtech/hora-skills-ort-furo
 
-A distribution package of the Furo/Nuxt frontend skills for developing with Hora Kit.
+A distribution package of the Furo/Nuxt frontend skills — installed into any repository on its own, and equipped by Hora Kit as one of its skill libraries.
 
 ## Concept
 
