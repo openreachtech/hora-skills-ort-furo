@@ -10,12 +10,12 @@ Furo/Nuxt フロントエンドスキルを配布するパッケージです。�
 
 配布されるスキルは 46 件、すべて `frontend` ドメインのもので、内容は「Furo/Nuxt アプリ」です。各名前の先頭 3 文字がドメインを表すので、フラットに並んだスキル一覧を見た人が、どれがこのパッケージ由来かを一目で判別できます。ドメインごとに別のパッケージになっており、リポジトリは自分が扱うドメインのものを入れます。
 
-| パッケージ | プレフィックス | ドメイン | スキル数 |
-| :-- | :-- | :-- | --: |
-| `@openreachtech/hora-skills-ort-core` | `hoc-` | `core` | 39 |
-| `@openreachtech/hora-skills-ort-renchan` | `hor-` | `backend` | 31 |
-| `@openreachtech/hora-skills-ort-furo`(このパッケージ) | `hof-` | `frontend` | 46 |
-| `@openreachtech/hora-skills-ort-support` | `hos-` | `support` | 3 |
+| パッケージ | プレフィックス | ドメイン |
+| :-- | :-- | :-- |
+| `@openreachtech/hora-skills-ort-core` | `hoc-` | `core` |
+| `@openreachtech/hora-skills-ort-renchan` | `hor-` | `backend` |
+| `@openreachtech/hora-skills-ort-furo`(このパッケージ) | `hof-` | `frontend` |
+| `@openreachtech/hora-skills-ort-support` | `hos-` | `support` |
 
 [**スキルカタログ**](https://github.com/openreachtech/hora-skills-ort-furo/blob/main/docs/skills.ja.md) ([English](https://github.com/openreachtech/hora-skills-ort-furo/blob/main/docs/skills.md)) — このパッケージに収録された全スキルの一覧と概要(1〜2 行)を、呼び出しコマンド名で並べています。
 
