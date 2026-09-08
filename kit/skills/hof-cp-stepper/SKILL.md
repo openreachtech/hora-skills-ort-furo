@@ -20,6 +20,14 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - Mutually exclusive content panels the user switches between freely (not a
@@ -60,6 +68,13 @@ this skill was written.
 | `<value>` (or `<slotName>`) | `{ value, step }` | Panel content for the matching step. One slot per step, keyed by the step's `value` (or its `slotName` override). |
 | `indicator-<value>` | `{ step, value, completed }` | Custom indicator content. When omitted, shows a check icon when completed, else the step number. |
 | `title-<value>` | `{ value }` | Custom title content. When omitted, the title shows `title`. |
+
+## Appearance
+
+This component's control boundary reads `--color-input`, the stronger of the
+library's two border tiers. If your app pinned a lighter edge, override
+`--color-input` from the app side — see the library token skill
+(`hof-lib-tokens`).
 
 ## Usage
 
@@ -130,3 +145,8 @@ Indicator-strip-only mode, where the step content lives in the page itself:
 - Keep the `steps` array and step-transition/validation logic (e.g. whether
   a step may be left) in the page/component Context, not inline in the
   template.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.
