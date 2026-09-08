@@ -20,6 +20,14 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - You need a menu of multiple actions behind a single trigger → use `hof-cp-dropdown-menu` (its default trigger slot is already `FuroButton`-styled; don't nest a separate `FuroButton` inside it unless overriding the trigger content).
@@ -40,10 +48,10 @@ this skill was written.
 | --- | --- | --- | --- |
 | `variant` | `FuroButtonVariant` | `'default'` | Visual style preset. Six variants exist: default, secondary, destructive, outline, ghost, link. |
 | `size` | `FuroButtonSize` | `'default'` | Size preset. Four sizes exist: default, sm, lg, and a square icon size. |
-| `disabled` | `boolean` | `false` | Disables interaction; also respects a fallthrough `disabled` attribute. |
+| `disabled` | `boolean` | `false` | Disables interaction; also respects a fallthrough `disabled` attribute. With `asChild`, that attribute is consumed rather than forwarded to the child. |
 | `loading` | `boolean` | `false` | Shows the loading slot and blocks the click emit. |
-| `asChild` | `boolean` | `false` | Merge props and behavior onto a single child element. |
-| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Native button type when not `asChild`. |
+| `asChild` | `boolean` | `false` | Merge props and behavior onto a single child element. `disabled` and `type` are **not** bound on that child. |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Native button type. Withheld with `asChild`, so write `type` on the child itself. |
 
 ## Events
 
@@ -100,6 +108,34 @@ With `asChild` composition onto an anchor:
 </template>
 ```
 
+## `asChild`: the attribute contract
+
+The slot child is rendered as the element itself, so `disabled` and `type` are
+not bound on it — whether they arrive through the `parcel` or as a fallthrough
+attribute. `<a>` has no `disabled` attribute, and forcing `type="button"` would
+override a child `<button>`'s own semantics. Write `type` on the child.
+
+`class`, `aria-disabled`, `aria-busy` and every other fallthrough attribute do
+reach the child. The child's own props win over the button's, except event
+handlers, which run alongside — the button's first.
+
+## `asChild`: a disabled child cannot be activated
+
+While `disabled` or `loading` is true the child also gets `tabindex="-1"`, and
+the default action of `click` and of Enter / Space `keydown` is prevented — so a
+"disabled" `<a href>`, `RouterLink` or `NuxtLink` does not navigate.
+
+Pass an element child, or a component that binds `$attrs` on its root. A
+component with `inheritAttrs: false` that never re-binds `$attrs` receives none
+of this — no `tabindex`, no `aria-disabled`, not even the class — and neither
+guard runs.
+
+## Appearance
+
+The `outline` variant's border reads `--color-input`, the stronger of the
+library's two border tiers. The loading spinner stops under
+`prefers-reduced-motion: reduce`, while `loading` still blocks the click emit.
+
 ## Rules (per project conventions)
 
 - `FuroButton` is an action trigger, not a form-control — it carries no
@@ -111,3 +147,11 @@ With `asChild` composition onto an anchor:
 - Keep the decision of what a click actually does (submit a form, call a
   Submitter, navigate) in the page/component Context as a named method
   (e.g. `onClickDelete`); the template should only forward `$event` to it.
+- With `parcel.asChild`, pass an element (or a component that binds `$attrs` on
+  its root) and write `type` on that child. Never rely on a disabled `asChild`
+  link staying navigable.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.
