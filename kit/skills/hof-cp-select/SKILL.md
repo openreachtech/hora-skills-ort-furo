@@ -26,6 +26,14 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - Free-form text entry, not a pick from a list → use `hof-cp-text-field`.
@@ -71,7 +79,7 @@ this skill was written.
 
 | Field | Type | Default | Notes |
 | --- | --- | --- | --- |
-| `value` | `FuroAutocompleteOption \| FuroAcceptableValue \| Array \| null` | — | Controlled selection; synced to the internal value, with fallthrough `value` as fallback. |
+| `value` | `FuroAutocompleteOption \| FuroAcceptableValue \| Array<FuroAutocompleteOption \| FuroAcceptableValue> \| null` | — | Controlled selection; synced to the internal value, with fallthrough `value` as fallback. |
 | `options` | `Array<FuroAutocompleteOption \| FuroAcceptableValue>` | `[]` | List rows (groups and leaves). |
 | `placeholder` | `string` | `'Select an option'` | Input placeholder. |
 | `loading` | `boolean` | `false` | Input spinner; filtered list returns empty and the empty state is suppressed. |
@@ -106,7 +114,7 @@ this skill was written.
 | Event | Payload | Fires when |
 | --- | --- | --- |
 | `change-value` | `AutocompleteEmitPayload` | Select option, select-all, clear, or chip remove. |
-| `update:value` | Option object, array, or null | Same gesture as `change-value`; suitable for `v-model:value`. |
+| `update:value` | `FuroAutocompleteOption \| FuroAcceptableValue \| Array<FuroAutocompleteOption \| FuroAcceptableValue> \| null` | Same gesture as `change-value`; suitable for `v-model:value`. |
 | `search-keyword` | `string` | After debounce while the popover is open; also `''` on clear. |
 | `create-option` | `AutocompleteEmitPayload` | Select the create row (creatable); read the typed value via `extractTrimmedSearchKeyword()`. |
 
@@ -138,6 +146,20 @@ fires at the selection point.
 | `empty` | `{ searchKeyword, loading }` | Shown when the filtered list is empty and not loading; defaults to `emptyText`. |
 | `loading` | `{ searchKeyword }` | Spinner shown in the list. |
 | `create-option` | `{ searchKeyword }` | `createOptionText` with `{keyword}` replaced; shown only when `creatable` and no exact match. |
+
+## Fallthrough attributes on `FuroSelect`
+
+Attributes written on `<FuroSelect>` are split by where they belong, because the
+component's state root renders no element of its own:
+
+| Attribute | Lands on |
+| --- | --- |
+| `id`, `aria-label`, `aria-labelledby`, `aria-describedby`, `data-*`, `title`, `tabindex`, … | the trigger — the `<button role="combobox">`, so a `<label for>` resolves |
+| `name`, `required`, `disabled`, `value`, `autocomplete`, `by` | the control itself; behaviour unchanged |
+| `class`, `style` | the wrapper |
+
+`triggerParcel` is applied after fallthrough, so an attribute declared there wins
+over the same one arriving by fallthrough.
 
 ## Usage
 
@@ -206,3 +228,11 @@ export default {
   create-option persistence in the page/component Context
   (`on{Field}SearchKeyword`, `on{Field}CreateOption` style methods), not
   inline in the template.
+- Put `id` and `aria-*` on `<FuroSelect>` as plain fallthrough attributes and
+  let the split route them to the trigger — do not reach for `triggerParcel` to
+  place an `id`, and do not put `name` / `required` / `disabled` there.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.
