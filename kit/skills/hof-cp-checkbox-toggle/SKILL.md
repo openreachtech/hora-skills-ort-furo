@@ -27,6 +27,14 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - Grouped, mutually-exclusive or multi-select toolbar buttons → use `hof-cp-toggle-group` instead of wiring multiple `FuroToggle` by hand.
@@ -88,6 +96,13 @@ this skill was written.
 - `FuroToggle`:
   - `default` (scoped props: `{ pressed }`) — toggle label or icon. `pressed` reflects the current state for conditional content.
 
+## Appearance
+
+This component's control boundary reads `--color-input`, the stronger of the
+library's two border tiers. If your app pinned a lighter edge, override
+`--color-input` from the app side — see the library token skill
+(`hof-lib-tokens`).
+
 ## Usage
 
 ```vue
@@ -148,3 +163,8 @@ export default {
 - Put the effect of a `FuroToggle` press (e.g. applying a formatting command,
   flipping a setting) in the page/component Context's `on{Toggle}Change`
   method, not inline in the template.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.

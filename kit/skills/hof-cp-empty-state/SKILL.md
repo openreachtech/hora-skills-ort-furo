@@ -24,6 +24,14 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - The region is still loading (request in flight), not empty or failed → use `app-avatar` (`FuroSkeleton`) instead.
@@ -82,6 +90,11 @@ this skill was written.
 | --- | --- | --- |
 | `icon` | — | Leading icon or illustration above the title. |
 | `action` | — | Action controls (for example a retry button) below the text. |
+
+## Appearance
+
+`FuroErrorState`'s glyph reads `--color-error-text`, the tier the error family
+is read at when it carries no surface — not the family's fill.
 
 ## Usage
 
@@ -146,3 +159,8 @@ export default {
   `hasFetchError`, `hasNoMembers`) for the template to branch on with
   `v-if`/`v-else-if`, rather than embedding fetch-result inspection in the
   template.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.
