@@ -21,6 +21,14 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - Plain multi-line text with no formatting (comment box, description field)
@@ -72,6 +80,13 @@ this skill was written.
 | `toolbar-end` | `{ command, editor }` | Custom controls appended to the toolbar. |
 | `attachments` | `{ attachedFiles, remove, isEditable }` | Render the attachment UI. `remove` is `({ index }) => void`. |
 | `footer` | — | Content rendered below the editor (e.g. submit row). |
+
+## Fallthrough attributes
+
+`class` and `style` compose onto the root. Every other DOM attribute you write
+on the component — `id`, `aria-*`, `data-*` — lands on its rendered root
+element, so a `<label for>` resolves and an `aria-describedby` reference points
+at something real.
 
 ## Usage
 
@@ -132,3 +147,8 @@ With attachments and a footer submit row:
 - Keep mention search, image upload, and commit/validation logic in the
   page/component Context (`on{Field}Commit`, `search...`, `upload...` style
   methods), not inline in the template.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.

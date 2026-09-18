@@ -22,6 +22,14 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - The value is always in edit mode (a normal form field, no preview state) → use `hof-cp-text-field` or `hof-cp-textarea` directly instead.
@@ -74,6 +82,12 @@ onto this component; it does not exist.
 | `submit-trigger` | Inside the editor actions; visible while editing. Same scoped props as `preview`. |
 | `cancel-trigger` | Inside the editor actions; visible while editing. Same scoped props as `preview`. |
 | `undo-trigger` | Shown when `showUndoChange` and the value changed since mount. Same scoped props as `preview`. |
+
+## A consumer `id` does not land
+
+An `id` written on `<FuroEditableField>` is not surfaced in the rendered DOM. Do not
+hang a `<label for>`, an `aria-*` reference, or an E2E hook off it — put it on a
+wrapper element you own, or on the content you pass through a slot.
 
 ## Usage
 
@@ -134,3 +148,8 @@ With a custom `#editor` slot for a non-text control:
 - Keep commit/validation/undo-decision logic in the page/component Context,
   not inline in the template — the template should only call a Context
   method from `@commit-value`.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.

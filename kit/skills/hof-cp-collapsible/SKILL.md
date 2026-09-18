@@ -22,6 +22,14 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - Content should be hidden behind a modal/drawer overlay rather than expand
@@ -98,6 +106,11 @@ this skill was written.
 | --- | --- | --- |
 | `header` | `{ option, expanded }` | Header content for a section. Defaults to `option.label` (or `option.value`). |
 | `content` | `{ option, expanded }` | Body content revealed when the section is open. |
+
+## Reduced motion
+
+`FuroCollapsible`'s and `FuroAccordion`'s open/close animation stops under `prefers-reduced-motion: reduce`. Do not add an app-level
+guard on top of it.
 
 ## Usage
 
@@ -176,3 +189,8 @@ export default {
   `FuroCollapsible` / `FuroAccordion` exports.
 - Put section data (`options`) and open-state change handling in the
   page/component Context, not inline in the template.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.

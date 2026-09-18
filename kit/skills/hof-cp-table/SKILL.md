@@ -23,6 +23,14 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - Non-tabular list of cards/rows with no columns/sorting needs → a plain `v-for` list is simpler than forcing it into `FuroTable`.
@@ -122,6 +130,17 @@ inspecting the component source shows each entry carries at least `field` and
 | `ellipsis` | — | Content of the gap marker (defaults to a three-dots icon). |
 | `page` | `{ page }` | Custom content for each page entry. Rendered via as-child, so the slot may supply an anchor for SEO — the click still drives `page:change`. |
 
+## Appearance and motion
+
+- The error row reads `--color-destructive-text`, the tier the destructive
+  family is read at when it carries no surface. The column-resize bar reads
+  `--color-input`, the interactive border tier.
+- The skeleton shimmer and the loading spinner stop under
+  `prefers-reduced-motion: reduce`.
+- `FuroTableVirtual` takes `{ itemSize, height, overscan?, endThreshold? }`.
+  `endThreshold` (default `8`) is how close to the loaded end a downward scroll
+  must get before more rows are requested.
+
 ## Usage
 
 ```vue
@@ -195,3 +214,8 @@ export default {
   presentational and holds no GraphQL, router, or fetch logic of its own —
   that responsibility belongs to the Context per the parent-component data
   flow policy.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.

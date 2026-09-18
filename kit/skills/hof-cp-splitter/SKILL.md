@@ -27,6 +27,14 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - Grouping buttons/toggles into one keyboard-navigable toolbar → use `hof-cp-toggle-group` (`FuroToolBar`) instead; its separators between control groups are the same `FuroSeparator`, but the surrounding container is not `FuroSplitter`.
@@ -114,6 +122,12 @@ this skill was written.
 
 `FuroSeparator` has no documented slots in the manifest.
 
+## A consumer `id` does not land
+
+An `id` written on `<FuroSplitter>` is not surfaced in the rendered DOM. Do not
+hang a `<label for>`, an `aria-*` reference, or an E2E hook off it — put it on a
+wrapper element you own, or on the content you pass through a slot.
+
 ## Usage
 
 ```vue
@@ -171,3 +185,8 @@ A separator used purely for visual division, unrelated to the splitter:
   `FuroSeparator` exports.
 - Put layout-persistence logic (e.g. saving `payload.layout` to a user
   preference) in the page/component Context, not inline in the template.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.

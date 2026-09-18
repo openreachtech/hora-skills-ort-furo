@@ -21,6 +21,14 @@ Read the manifest before writing markup if you need to confirm it's still
 current — the library may have added props/events since this skill was
 written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - Show/hide a single region without a trigger row of labeled tabs → use `hof-cp-collapsible`.
@@ -66,6 +74,11 @@ if the manifest doesn't expand this type.
 | --- | --- | --- |
 | `<value>` (or `<slotName>`) | — | Panel content for the matching tab. One slot per tab, keyed by the tab's `value` (or its `slotName` override). |
 | `label-<value>` | `{ value, label }` | Custom trigger content for the matching tab. When omitted, the trigger shows `label`. |
+
+## Reduced motion
+
+The active-tab indicator slide stops under `prefers-reduced-motion: reduce`. Do not add an app-level
+guard on top of it.
 
 ## Usage
 
@@ -135,3 +148,8 @@ Navigation-menu-only mode (router-driven, no panels):
 - Keep tab-change side effects (e.g. lazy-loading a panel's data, router
   navigation in menu-only mode) in the page/component Context's
   `onTabChange`-style method, not inline in the template.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.

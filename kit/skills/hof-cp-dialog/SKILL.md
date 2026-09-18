@@ -27,6 +27,14 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
+Each manifest record also carries a `types` array beside `slots`. When a prop,
+`parcel` field, or event payload names a nested type
+(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
+record's `types` array — each entry carries the authored `definition` plus a
+parsed `fields` list (`name`, `type`, `required`) for an object shape, or
+`values` for a string union. Read the shape from the manifest, not from
+component source.
+
 ## When NOT to use
 
 - Small, click-anchored floating panel that doesn't need to block the page (inline edit, action panel) → use `hof-cp-popover` (`FuroPopover`), not a non-modal `FuroDialog`.
@@ -151,6 +159,13 @@ All three take a single `parcel` prop — no other props.
 | `footer` (scoped: `{ close }`) | Footer region (e.g. action buttons). Receives a `close()` slot prop. |
 | `close` | Content of the built-in close button (defaults to ✕). |
 
+## Fallthrough attributes
+
+`class` and `style` compose onto the root. Every other DOM attribute you write
+on the component — `id`, `aria-*`, `data-*` — lands on its wrapper
+element, so a `<label for>` resolves and an `aria-describedby` reference points
+at something real.
+
 ## Usage
 
 ```vue
@@ -228,3 +243,8 @@ export default {
 - Keep business logic (what happens on confirm/cancel/close, what data the
   dialog body submits) in the page/component Context, not inline in the
   template.
+- Pass only the `parcel` keys this skill lists. A component reads the keys it
+  names and ignores the rest, so a mistyped key changes nothing and reports
+  nothing. Some components warn in development through Vue's warning channel,
+  naming the unknown key and the accepted ones — but not every component does,
+  so check a key against the manifest rather than trusting silence.
