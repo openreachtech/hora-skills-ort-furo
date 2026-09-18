@@ -5,7 +5,8 @@
  *
  * What the API layer exposes is the contract of what the product can do, and it is machine-readable. So a
  * missing feature does not have to be noticed by someone: it shows up as a difference — an operation with a
- * client built for it and nothing importing that client. A requirement can be fully implemented on both
+ * client built for it and nothing importing that client. A query, a mutation, a subscription and a REST
+ * call are all read the same way. A requirement can be fully implemented on both
  * sides and still be unreachable, and nothing else in the toolchain reports that.
  *
  * Deliberate absences are read from the project declaration, so an operation kept out of the UI on purpose
@@ -54,7 +55,37 @@ const CONSUMER_DIRECTORY_NAMES = [
   'stores',
 ]
 
-const LAUNCHER_FILE_SUFFIX = 'Launcher.js'
+/*
+ * The class that leads an operation's trio, and how the other two are named from it. A query, a mutation
+ * and a REST call are led by a Launcher and all three share one stem; a subscription is led by a Subscriber
+ * and its Payload and Capsule carry `Subscription` besides, so the same swap does not reach them.
+ *
+ * Reading Launcher.js alone walked past every subscription. Measured against a real frontend: 16 operations
+ * enumerated where there were 19, and two of the three it missed had no call site at all — reported as
+ * clean by the one check whose whole purpose is to find an operation with no way in.
+ */
+const ENTRY_CLASS_SHAPES = [
+  {
+    suffix: 'Launcher.js',
+    buildClassNames: entryName => [
+      entryName,
+      entryName.replace('Launcher', 'Payload'),
+      entryName.replace('Launcher', 'Capsule'),
+    ],
+  },
+  {
+    suffix: 'Subscriber.js',
+    buildClassNames: entryName => [
+      entryName,
+      entryName.replace('GraphqlSubscriber', 'SubscriptionGraphqlPayload'),
+      entryName.replace('GraphqlSubscriber', 'SubscriptionGraphqlCapsule'),
+    ],
+  },
+]
+
+const ENTRY_CLASS_LABEL = ENTRY_CLASS_SHAPES
+  .map(it => `*${it.suffix}`)
+  .join(' or ')
 
 const DECLARATION_PATH = path.join('ai', 'contexts', 'acceptance-context.md')
 
@@ -127,7 +158,8 @@ function readExclusions () {
       name: String(matched.groups?.name),
       reason: String(matched.groups?.reason),
     }))
-    .filter(it => it.name.endsWith(LAUNCHER_FILE_SUFFIX.replace('.js', '')))
+    .filter(it => ENTRY_CLASS_SHAPES
+      .some(shape => it.name.endsWith(shape.suffix.replace('.js', ''))))
 }
 
 /*
@@ -136,26 +168,23 @@ function readExclusions () {
  * of reachability is the operation, and any of its class names counts as reaching it. Naming the launcher
  * alone reported a reachable upload as unreachable.
  */
-const operations = CLIENT_DIRECTORY_NAMES
-  .flatMap(directoryName => collectFilePaths({
-    directoryPath: path.join(PROJECT_PATH, directoryName),
-    suffix: LAUNCHER_FILE_SUFFIX,
-  }))
-  .map(filePath => path.basename(filePath, '.js'))
-  .filter(name => !name.startsWith('Base'))
-  .map(launcherName => ({
-    name: launcherName,
-    classNames: [
-      launcherName,
-      launcherName.replace('Launcher', 'Payload'),
-      launcherName.replace('Launcher', 'Capsule'),
-    ],
-  }))
+const operations = ENTRY_CLASS_SHAPES
+  .flatMap(shape => CLIENT_DIRECTORY_NAMES
+    .flatMap(directoryName => collectFilePaths({
+      directoryPath: path.join(PROJECT_PATH, directoryName),
+      suffix: shape.suffix,
+    }))
+    .map(filePath => path.basename(filePath, '.js'))
+    .filter(name => !name.startsWith('Base'))
+    .map(entryName => ({
+      name: entryName,
+      classNames: shape.buildClassNames(entryName),
+    })))
 
-const launcherNames = operations.map(it => it.name)
+const entryClassNames = operations.map(it => it.name)
 
-if (launcherNames.length === 0) {
-  console.log(`NOT APPLICABLE: no *${LAUNCHER_FILE_SUFFIX} found under ${CLIENT_DIRECTORY_NAMES.join(' or ')}.`)
+if (entryClassNames.length === 0) {
+  console.log(`NOT APPLICABLE: no ${ENTRY_CLASS_LABEL} found under ${CLIENT_DIRECTORY_NAMES.join(' or ')}.`)
 
   nodeProcess.exitCode = 2
 } else {
@@ -187,7 +216,7 @@ if (launcherNames.length === 0) {
   console.log(
     [
       report,
-      `UNREACHED OPERATIONS: ${unexpected.length}   EXCLUDED: ${excludedNames.size - stale.length}   STALE: ${stale.length}   OPERATIONS: ${launcherNames.length}`,
+      `UNREACHED OPERATIONS: ${unexpected.length}   EXCLUDED: ${excludedNames.size - stale.length}   STALE: ${stale.length}   OPERATIONS: ${entryClassNames.length}`,
     ]
       .filter(it => it !== '')
       .join('\n\n')
