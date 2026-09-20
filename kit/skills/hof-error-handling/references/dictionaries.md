@@ -1,6 +1,6 @@
 # The dictionaries — `app/constants-error.js`
 
-Backend error codes are dotted strings like `'203.M003.001'`. The frontend maps each code to an i18n **locale path** (a key), and the i18n layer renders it into the active language.
+Backend error codes are dotted strings like `'203.M003.001'`, in the format the error codes convention settles. The frontend maps each code to an i18n **locale path** (a key), and the i18n layer renders it into the active language.
 
 A code is looked up and resolved to a locale path at a single point in `BaseAppGraphqlCapsule` (see [resolving-and-surfacing](resolving-and-surfacing.md)). The dictionaries live in `app/constants-error.js` — look for `ERROR_CODE_HASH` and `ERROR_LOCALE_HASH`.
 
