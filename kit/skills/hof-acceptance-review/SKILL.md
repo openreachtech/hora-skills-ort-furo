@@ -150,9 +150,19 @@ This phase **uses** the local environment; it never builds one. Where a dependen
 provoke a failure, restart it before the next flow, and leave the environment in the state the operator
 handed it over in.
 
-Drive the browser with whatever automation the project has. If a dedicated browser-automation convention is
-available, follow it for harness layout, waiting and artifacts; this skill needs only that each screen be
-mounted, each flow completed, console output captured, and failures evidenced by a screenshot.
+**Playwright drives the browser, headless, against the local environment.** It is a development dependency
+of the frontend repository, so the pass needs nothing the repository does not already carry. If a dedicated
+browser-automation convention is available, follow it for harness layout, waiting and artifacts; this skill
+needs only that each screen be mounted, each flow completed, console output captured, and failures evidenced
+by a screenshot.
+
+**Never drive the person's own browser through an extension.** An extension acts inside the browser the
+person is signed in to everything with, so a compromised extension, or a page whose content steers the agent,
+reaches every session held there. The review needs nothing but the local stack and its seeded accounts, and
+the browser Playwright launches holds nothing else.
+
+**A run nobody watches leaves its evidence behind**: a trace of each flow and a screenshot of each failure,
+named in the report. A person who wants to watch the pass runs it headed instead.
 
 > **Gate 4** — every screen in scope mounted, every core flow completed, console free of uncaught errors
 > throughout. Where a specification exists, its coverage is reported — a scenario left unrun is named, not
