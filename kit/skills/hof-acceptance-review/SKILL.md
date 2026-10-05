@@ -18,15 +18,18 @@ its own with nothing behind it. Before Phase 0, confirm that:
 
 - the application runs locally **together with every service it talks to**, not just the UI;
 - the accounts for each role can sign in;
-- there is reviewable data present, or a command that puts it there.
+- there is reviewable data present, or a command that puts it there;
+- Playwright is installed in the frontend repository, **together with the browser build it launches** — the
+  package alone does not open a page.
 
 **Building that environment is outside this skill.** How the stack is defined, started, loaded and disposed
 of is a separate convention's business. This review only records whether the result was available, and reads
 the commands for using it from the project declaration (`references/project-declaration.md`).
 
-If the environment cannot be brought up, **the review does not quietly continue as a static-only pass**: say
-so in the capability note, record Phase 4 as not run, mark Gate 4 accordingly, and leave every finding that
-depended on running the app under "couldn't verify". A static sweep is a legitimate deliverable — a static
+If the environment cannot be brought up — and a missing Playwright or browser build is that case, not a
+lesser one — **the review does not quietly continue as a static-only pass**: say so in the capability note,
+record Phase 4 as not run, mark Gate 4 accordingly, and leave every finding that depended on running the app
+under "couldn't verify". A static sweep is a legitimate deliverable — a static
 sweep presented as an acceptance review is not.
 
 Two principles govern the whole review.
@@ -52,8 +55,8 @@ scoped pass is never read as a clean bill of health for the whole app.
 
 Determine, and record:
 
-- The UI framework, the API style (schema-first, spec-first, or route files), the test runner, and whether a
-  browser can be driven here.
+- The UI framework, the API style (schema-first, spec-first, or route files), the test runner, and whether
+  Playwright and its browser build were found before starting.
 - Whether the local environment described above is **actually up** — which decides whether Phase 4 happens.
   Check it, do not assume it: a review that mistakes a stopped dependency for a broken screen wastes its
   findings.
