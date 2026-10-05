@@ -1,6 +1,6 @@
 ---
 name: hof-error-handling
-description: Error handling in a Furo/Nuxt app — mapping backend dotted error codes to user-facing messages via app/constants-error.js using i18n locale paths (ERROR_CODE_HASH + ERROR_LOCALE_HASH), the capsule resolution point (extractResolvedErrorLocalePath), the errorMessageHashReactive pattern surfacing errors to templates, and the Nuxt error.vue page. Use when handling or displaying errors.
+description: Error handling in a Furo/Nuxt app — mapping backend dotted error codes to user-facing messages via app/constants-error.js using i18n locale paths (ERROR_CODE_HASH + ERROR_LOCALE_HASH), the capsule resolution point (extractResolvedErrorLocalePath), the errorMessageHashReactive pattern surfacing errors to templates, and the Nuxt error.vue page. Use when handling or displaying errors. What a code is made of belongs to the error codes convention.
 metadata:
   author: OpenReachTech
   version: "2026.07.24"
@@ -9,6 +9,8 @@ metadata:
 # Error Handling
 
 Use this skill when translating backend errors to user-facing messages, surfacing operation errors in the UI, or working on the Nuxt error page.
+
+What a code means, and how it is put together, are settled by the error codes convention; this skill starts from a code that already exists.
 
 The message dictionary maps each backend code to an i18n **locale path** (`ERROR_CODE_HASH` + `ERROR_LOCALE_HASH` in `app/constants-error.js`); the i18n layer renders the path into the active language.
 
