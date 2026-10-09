@@ -13,6 +13,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 | `hof-nuxt` | Build a Nuxt/Furo frontend the OpenReach way — pages, components, composables, `useState` stores, the AppShare service (`$furo`), middleware, plugins, layouts and ambient types. |
 | `hof-furo-context-patterns` | How to use Furo Context classes — `BaseAppContext` generics, the `create()`/`setupComponent()` lifecycle, DI from setup, watchers, and the `*PageContext`/`*Context` taxonomy. |
 | `hof-furo-env` | Configure Furo environment variables (`.furo-env` files) — adding or changing a variable, and wiring an endpoint or key. |
+| `hof-jsdoc` | JSDoc conventions that hold only in a Furo app — where type blocks sit, reactive and Vue prop types, Furo class and `create()` factory typing, and ambient globals used without an import. |
 | `hof-modules` | Reusable general logic lives in utility classes, not utility functions or composables — Furo follows an OOP structure. |
 | `hof-prohibits` | No JavaScript logic inside a `.vue` `<template>`; logic is moved onto members of the Context. |
 
