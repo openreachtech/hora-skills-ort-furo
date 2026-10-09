@@ -21,7 +21,7 @@ the blank line between blocks in the comment convention; this file covers where 
  */
 ```
 
-Sources: Vue built-ins from `'vue'`, Nuxt from `'#app'`, furo base params from `'@openreachtech/furo-nuxt/lib/contexts/BaseFuroContext.js'`, sibling local types from `'./Component.vue'` / `'./index.vue'`.
+Which module each type comes from is in the source table of [type-imports](type-imports.md).
 
 ## Inline `@type` on reactive declarations
 
@@ -38,7 +38,17 @@ const errorMessageHashReactive = reactive({
 const timeoutIdRef = ref(null)
 ```
 
-Here `Reactive`/`Ref` are pulled in once via a bottom-of-file `@import { Reactive, Ref } from 'vue'` block (the preferred style). In a repo that uses the inline style instead, write `@type {import('vue').Ref<...>}`. Both styles are defined in [[hoc-jsdoc]].
+Here `Reactive`/`Ref` are pulled in once via a bottom-of-file `@import { Reactive, Ref } from 'vue'` block (the preferred style). In a repo that uses the inline style instead, write the module into the same place:
+
+```js
+/** @type {import('vue').Ref<HTMLFormElement | null>} */
+const formRef = ref(null)
+
+/** @type {import('vue').ShallowRef<HTMLInputElement | null>} */
+const inputShallowRef = shallowRef(null)
+```
+
+Both styles are defined in [[hoc-jsdoc]]; their Furo forms are in [type-imports](type-imports.md).
 
 ## Naming
 
