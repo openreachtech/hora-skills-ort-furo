@@ -1,6 +1,6 @@
 ---
 name: hof-jsdoc
-description: "JSDoc conventions that hold only in a Vue / Nuxt / Furo app: where type blocks sit in a file or `<script>`, the types reactive declarations and Vue props carry, how a Furo class and its `create()` factory are typed, and the ambient globals used without an import. Use when writing or reviewing JSDoc in a Furo app. The rules every JavaScript file follows, backend included, belong to the shared JSDoc convention."
+description: "JSDoc conventions that hold only in a Vue / Nuxt / Furo app: where type blocks sit in a file or `<script>` and the forms type-only imports take there, the types reactive declarations and Vue props carry, how a Furo class and its `create()` factory are typed, and the ambient globals used without an import. Use when writing or reviewing JSDoc in a Furo app. The rules every JavaScript file follows, backend included, belong to the shared JSDoc convention."
 metadata:
   author: OpenReachTech
   version: "2026.10.10"
@@ -27,12 +27,8 @@ restated here.
 - **The inline `import('…')` expression is the alternative.** Some Furo apps use it
   everywhere; follow it where it is established, and never mix the two for the same type.
 
-Besides the module sources [[hoc-jsdoc]] lists, a Furo app imports types from these:
-
-| Source | For |
-| --- | --- |
-| `'#app'` | Nuxt types such as `NuxtError` |
-| `'@openreachtech/furo-nuxt'` / `'@openreachtech/furo-nuxt/lib/contexts/BaseFuroContext.js'` | `BaseFuroContextParams`, furo base types |
+Their Furo forms — the `.vue`-only `default as` form, the Nuxt aliases, the modules each
+type comes from — are in [type-imports.md](./references/type-imports.md).
 
 Types declared under `declare global` are imported in neither style — see
 [vue-props-and-globals.md](./references/vue-props-and-globals.md).
@@ -41,6 +37,7 @@ Types declared under `declare global` are imported in neither style — see
 
 | Reference | Topic |
 | --- | --- |
+| [type-imports.md](./references/type-imports.md) | The `@import` tag and the `import('…')` expression in Furo form, the `.vue`-only `default as` form, and the modules types are imported from |
 | [placement.md](./references/placement.md) | Where `@typedef` / `@import` blocks go, inline `@type` on reactive declarations, Params / FactoryParams naming |
 | [class-typing.md](./references/class-typing.md) | Params / FactoryParams typedef pair, `create()` factory template idiom, `@template` / `@extends` / `@override` / `@property` |
 | [vue-props-and-globals.md](./references/vue-props-and-globals.md) | Vue `PropType` on prop definitions in either import style, ambient globals used unqualified |
