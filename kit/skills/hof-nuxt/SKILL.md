@@ -10,7 +10,7 @@ metadata:
 
 Use this skill when working anywhere in a Nuxt/Furo app. Every UI unit — page, component, layout — is a thin `defineComponent` that wires reactive state and clients in `setup`, delegates all logic to a paired **Context class**, and reads only through `context.*` in the template. Furo apps have **auto-import disabled** (everything is imported by hand) and never use `<script setup>` or the Options API; app code is JavaScript + JSDoc.
 
-> Foundation: [[hof-furo-context-patterns]] (the Context contract that pages, components, layouts, stores, and app-share all build on). See also [[hof-css]] for the `.unit-` styling rules and [[hoc-jsdoc]] / [[types]] for typing.
+> Foundation: [[hof-furo-context-patterns]] (the Context contract that pages, components, layouts, stores, and app-share all build on). See also [[hof-css]] for the `.unit-` styling rules and [[hof-jsdoc]] (frontend) / [[hoc-jsdoc]] (shared) / [[types]] for typing.
 
 ## Pages
 
