@@ -13,6 +13,7 @@
 | `hof-nuxt` | Nuxt/Furo フロントエンドを OpenReach 流に構築します。pages、components、composables、`useState` ストア、AppShare サービス(`$furo`)、middleware、plugins、layouts、型宣言。 |
 | `hof-furo-context-patterns` | Furo の Context クラスの使い方。`BaseAppContext` のジェネリクス、`create()`/`setupComponent()` のライフサイクル、setup からの DI、watcher、`*PageContext`/`*Context` の分類。 |
 | `hof-furo-env` | Furo の環境変数(`.furo-env` ファイル)を設定します。変数の追加・変更、エンドポイントやキーの配線。 |
+| `hof-jsdoc` | Furo アプリでだけ成り立つ JSDoc の規約。型ブロックの置き場所、reactive と Vue の prop の型、Furo のクラスと `create()` ファクトリの型付け、import せずに使う ambient なグローバル型。 |
 | `hof-modules` | 再利用する汎用ロジックはユーティリティ関数や composable ではなくクラスに置きます。Furo は OOP 構成を採るためです。 |
 | `hof-prohibits` | Vue コンポーネントの禁止事項。`.vue` の `<template>` 内に JavaScript のロジックを書かず、Context のメンバーへ移します。 |
 
