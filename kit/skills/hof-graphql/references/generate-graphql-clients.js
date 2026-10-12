@@ -453,8 +453,11 @@ function renderCapsuleFile ({
   operationMetadata,
 }) {
   const responseContentTypeName = `${operationMetadata.operationName}ResponseContent`
-  const responseTypeName = getNamedTypeName(operationField.type)
-  const responseType = schema.objectTypes.get(responseTypeName)
+  const responseJsdocType = toJsdocType({
+    schema,
+    typeNode: operationField.type,
+  })
+  const responseType = schema.objectTypes.get(getNamedTypeName(operationField.type))
   const rootGetterName = `${operationMetadata.originalFieldName}ValueHash`
   const topLevelGetters = renderTopLevelResultGetters({
     schema,
@@ -474,7 +477,7 @@ function renderCapsuleFile ({
     '  /**',
     `   * get: ${rootGetterName}`,
     '   *',
-    `   * @returns {schema.graphql.${responseTypeName} | null}`,
+    `   * @returns {${responseJsdocType} | null}`,
     '   */',
     `  get ${rootGetterName} () {`,
     '    return this.content',
@@ -486,7 +489,7 @@ function renderCapsuleFile ({
     '',
     '/**',
     ' * @typedef {{',
-    ` *   ${operationMetadata.originalFieldName}: schema.graphql.${responseTypeName}`,
+    ` *   ${operationMetadata.originalFieldName}: ${responseJsdocType}`,
     ` * }} ${responseContentTypeName}`,
     ' */',
     '',
