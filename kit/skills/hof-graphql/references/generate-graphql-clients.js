@@ -481,8 +481,7 @@ function renderCapsuleFile ({
     `      ?.${operationMetadata.originalFieldName}`,
     '      ?? null',
     '  }',
-    topLevelGetters ? '' : null,
-    topLevelGetters,
+    ...topLevelGetters.flatMap((getter) => ['', getter]),
     '}',
     '',
     '/**',
@@ -491,9 +490,7 @@ function renderCapsuleFile ({
     ` * }} ${responseContentTypeName}`,
     ' */',
     '',
-  ]
-    .filter((line) => line !== null)
-    .join('\n')
+  ].join('\n')
 }
 
 function renderTopLevelResultGetters ({
@@ -502,16 +499,14 @@ function renderTopLevelResultGetters ({
   rootGetterName,
 }) {
   if (!responseType) {
-    return ''
+    return []
   }
 
-  const getters = (responseType.fields ?? []).map((field) => renderTopLevelGetter({
+  return (responseType.fields ?? []).map((field) => renderTopLevelGetter({
     schema,
     field,
     rootGetterName,
   }))
-
-  return getters.join('\n\n')
 }
 
 function renderTopLevelGetter ({
