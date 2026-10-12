@@ -457,7 +457,16 @@ function renderCapsuleFile ({
     schema,
     typeNode: operationField.type,
   })
-  const responseType = schema.objectTypes.get(getNamedTypeName(operationField.type))
+  const isArrayResponse = isListType(operationField.type)
+  const responseType = isArrayResponse
+    ? null
+    : schema.objectTypes.get(getNamedTypeName(operationField.type))
+  const rootReturnType = isArrayResponse
+    ? responseJsdocType
+    : `${responseJsdocType} | null`
+  const rootDefaultValue = isArrayResponse
+    ? '[]'
+    : 'null'
   const rootGetterName = `${operationMetadata.originalFieldName}ValueHash`
   const topLevelGetters = renderTopLevelResultGetters({
     schema,
@@ -477,12 +486,12 @@ function renderCapsuleFile ({
     '  /**',
     `   * get: ${rootGetterName}`,
     '   *',
-    `   * @returns {${responseJsdocType} | null}`,
+    `   * @returns {${rootReturnType}}`,
     '   */',
     `  get ${rootGetterName} () {`,
     '    return this.content',
     `      ?.${operationMetadata.originalFieldName}`,
-    '      ?? null',
+    `      ?? ${rootDefaultValue}`,
     '  }',
     ...topLevelGetters.flatMap((getter) => ['', getter]),
     '}',
