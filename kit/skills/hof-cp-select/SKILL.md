@@ -26,14 +26,6 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
-Each manifest record also carries a `types` array beside `slots`. When a prop,
-`parcel` field, or event payload names a nested type
-(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
-record's `types` array — each entry carries the authored `definition` plus a
-parsed `fields` list (`name`, `type`, `required`) for an object shape, or
-`values` for a string union. Read the shape from the manifest, not from
-component source.
-
 ## When NOT to use
 
 - Free-form text entry, not a pick from a list → use `hof-cp-text-field`.
@@ -245,6 +237,4 @@ export default {
   keep `name` / `required` / `disabled` on `<FuroSelect>` itself.
 - Pass only the `parcel` keys this skill lists. A component reads the keys it
   names and ignores the rest, so a mistyped key changes nothing and reports
-  nothing. Some components warn in development through Vue's warning channel,
-  naming the unknown key and the accepted ones — but not every component does,
-  so check a key against the manifest rather than trusting silence.
+  nothing, so check a key against the manifest rather than trusting silence.
