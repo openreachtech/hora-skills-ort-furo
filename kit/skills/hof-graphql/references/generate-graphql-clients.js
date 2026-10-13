@@ -156,14 +156,14 @@ function exitWithUsage (message) {
     message,
     '',
     'Usage:',
-    '  hectici gqlclients <schema-path ...> [--target <name ...>] [--out <output-directory>] [--depth <number>] [--force]',
+    '  node .claude/skills/hof-graphql/references/generate-graphql-clients.js <schema-path ...> [--target <name ...>] [--out <output-directory>] [--depth <number>] [--force]',
     '',
     'Examples:',
-    '  hectici gqlclients server/graphql/schemas',
-    '  hectici gqlclients server/graphql/schemas/customer --out app/graphql/client',
-    '  hectici gqlclients server/graphql/schemas/customer --depth 10 --out app/graphql/client',
-    '  hectici gqlclients server/graphql/schemas/customer --target user users --out app/graphql/client',
-    '  hectici gqlclients server/graphql/schemas/customer --out app/graphql/client --force',
+    '  node .claude/skills/hof-graphql/references/generate-graphql-clients.js server/graphql/schemas',
+    '  node .claude/skills/hof-graphql/references/generate-graphql-clients.js server/graphql/schemas/customer --out app/graphql/client',
+    '  node .claude/skills/hof-graphql/references/generate-graphql-clients.js server/graphql/schemas/customer --depth 10 --out app/graphql/client',
+    '  node .claude/skills/hof-graphql/references/generate-graphql-clients.js server/graphql/schemas/customer --target user users --out app/graphql/client',
+    '  node .claude/skills/hof-graphql/references/generate-graphql-clients.js server/graphql/schemas/customer --out app/graphql/client --force',
   ].join('\n')
 
   process.stderr.write(`${usage}\n`)

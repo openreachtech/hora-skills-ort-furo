@@ -78,11 +78,11 @@ function exitWithUsage (message) {
     message,
     '',
     'Usage:',
-    '  hectici gqltypes <schema-path ...> [--out <output-file>]',
+    '  node .claude/skills/hof-graphql/references/generate-graphql-types.js <schema-path ...> [--out <output-file>]',
     '',
     'Examples:',
-    '  hectici gqltypes server/graphql/schemas',
-    '  hectici gqltypes server/graphql/schemas/customer server/graphql/common.graphql --out types/graphql-schema.d.ts',
+    '  node .claude/skills/hof-graphql/references/generate-graphql-types.js server/graphql/schemas',
+    '  node .claude/skills/hof-graphql/references/generate-graphql-types.js server/graphql/schemas/customer server/graphql/common.graphql --out types/graphql-schema.d.ts',
   ].join('\n')
 
   process.stderr.write(`${usage}\n`)
