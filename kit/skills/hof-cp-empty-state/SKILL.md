@@ -93,8 +93,7 @@ component source.
 
 ## Appearance
 
-`FuroErrorState`'s glyph reads `--color-error-text`, the tier the error family
-is read at when it carries no surface — not the family's fill.
+`FuroErrorState`'s glyph reads `--color-destructive`.
 
 ## Usage
 
