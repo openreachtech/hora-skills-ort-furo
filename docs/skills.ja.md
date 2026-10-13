@@ -71,7 +71,7 @@
 
 | スキル | 概要 |
 | :-- | :-- |
-| `hof-cookie-authentication` | Furo/Nuxt アプリの Cookie 認証。メモリ上のセッション層(トークンストア、再取得、401/205 の自己修復、ルートゲートウェイ、サインアウト)、認証用 GraphQL クライアント、リフレッシュ Cookie をファーストパーティに保つための same-origin 配信。 |
+| `hof-cookie-authentication` | Furo/Nuxt アプリの、パスワードサインインとリフレッシュ Cookie による認証。メモリ上のセッション層(トークンストア、再取得、401/205 の自己修復、ルートゲートウェイ、サインアウト)、認証用 GraphQL クライアント、リフレッシュ Cookie をファーストパーティに保つための same-origin 配信。 |
 
 ### エラーハンドリング
 
