@@ -132,8 +132,7 @@ inspecting the component source shows each entry carries at least `field` and
 
 ## Appearance and motion
 
-- The error row reads `--color-destructive-text`, the tier the destructive
-  family is read at when it carries no surface. The column-resize bar reads
+- The error row reads `--color-destructive`. The column-resize bar reads
   `--color-input`, the interactive border tier.
 - The skeleton shimmer and the loading spinner stop under
   `prefers-reduced-motion: reduce`.
