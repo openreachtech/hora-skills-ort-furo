@@ -19,6 +19,8 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 
 ### Components
 
+The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `1.4.0`.
+
 | Skill | Summary |
 | :-- | :-- |
 | `hof-cp-button` | A clickable action trigger — submit, primary, icon or loading button. Routes to `FuroButton`. |
@@ -58,7 +60,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 | `hof-layout-margin` | Spacing in Flex/Grid is the container's responsibility; layout items carry no margin. Even spacing uses `gap`, exceptions are owned from the parent. |
 | `hof-selector-props-sort` | Property ordering (Outer-to-Inner Order) — categorize by what the property applies to and order outer to inner, alphabetically within a group. |
 | `hof-animation` | UI animation conventions — whether and why an element animates, easing from the `--transition-timing-*` tokens, and the entry/popover/tooltip/blur techniques that keep motion responsive. |
-| `hof-lib-tokens` | Re-theming the component library's own semantic tokens from a consumer app — the published prefixes, the two border tiers, the intent text tier and the easing tokens. |
+| `hof-lib-tokens` | Re-theming the component library's own semantic tokens from a consumer app: the published prefixes, the two border tiers, the intent roles and the easing tokens. |
 
 ### API clients
 
