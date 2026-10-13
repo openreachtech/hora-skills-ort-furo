@@ -453,8 +453,20 @@ function renderCapsuleFile ({
   operationMetadata,
 }) {
   const responseContentTypeName = `${operationMetadata.operationName}ResponseContent`
-  const responseTypeName = getNamedTypeName(operationField.type)
-  const responseType = schema.objectTypes.get(responseTypeName)
+  const responseJsdocType = toJsdocType({
+    schema,
+    typeNode: operationField.type,
+  })
+  const isArrayResponse = isListType(operationField.type)
+  const responseType = isArrayResponse
+    ? null
+    : schema.objectTypes.get(getNamedTypeName(operationField.type))
+  const rootReturnType = isArrayResponse
+    ? responseJsdocType
+    : `${responseJsdocType} | null`
+  const rootDefaultValue = isArrayResponse
+    ? '[]'
+    : 'null'
   const rootGetterName = `${operationMetadata.originalFieldName}ValueHash`
   const topLevelGetters = renderTopLevelResultGetters({
     schema,
@@ -474,26 +486,23 @@ function renderCapsuleFile ({
     '  /**',
     `   * get: ${rootGetterName}`,
     '   *',
-    `   * @returns {schema.graphql.${responseTypeName} | null}`,
+    `   * @returns {${rootReturnType}}`,
     '   */',
     `  get ${rootGetterName} () {`,
     '    return this.content',
     `      ?.${operationMetadata.originalFieldName}`,
-    '      ?? null',
+    `      ?? ${rootDefaultValue}`,
     '  }',
-    topLevelGetters ? '' : null,
-    topLevelGetters,
+    ...topLevelGetters.flatMap((getter) => ['', getter]),
     '}',
     '',
     '/**',
     ' * @typedef {{',
-    ` *   ${operationMetadata.originalFieldName}: schema.graphql.${responseTypeName}`,
+    ` *   ${operationMetadata.originalFieldName}: ${responseJsdocType}`,
     ` * }} ${responseContentTypeName}`,
     ' */',
     '',
-  ]
-    .filter((line) => line !== null)
-    .join('\n')
+  ].join('\n')
 }
 
 function renderTopLevelResultGetters ({
@@ -502,16 +511,14 @@ function renderTopLevelResultGetters ({
   rootGetterName,
 }) {
   if (!responseType) {
-    return ''
+    return []
   }
 
-  const getters = (responseType.fields ?? []).map((field) => renderTopLevelGetter({
+  return (responseType.fields ?? []).map((field) => renderTopLevelGetter({
     schema,
     field,
     rootGetterName,
   }))
-
-  return getters.join('\n\n')
 }
 
 function renderTopLevelGetter ({
