@@ -14,7 +14,7 @@ The app keeps a short-lived **access token in a Nuxt `useState` store** (never `
 
 The pattern covers password sign-in, where the app holds an access token. A session cookie the backend sets after an OIDC or SSO sign-in leaves the app no token to hold, so this skill does not apply to it.
 
-This is application code built on top of the boilerplate's generic `BaseAppGraphql*` classes ([[hof-graphql]]) — it is not in the boilerplate itself. The base payload is token-free; this skill attaches the token per request.
+This is application code built on top of the boilerplate's generic `BaseAppGraphql*` classes ([[hof-graphql]]) — it is not in the boilerplate itself. The boilerplate's base payload also looks for a token in `localStorage`; this skill writes nothing there, so the token reaches each request only through the session store.
 
 > Depends on the backend cookie-authentication skill for the token schema, cookie context, and the `signIn` / `renewAccessToken` / `signOut` resolvers. Binding the server to loopback is a separate server-hardening concern, not part of this skill.
 
