@@ -23,14 +23,6 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
-Each manifest record also carries a `types` array beside `slots`. When a prop,
-`parcel` field, or event payload names a nested type
-(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
-record's `types` array — each entry carries the authored `definition` plus a
-parsed `fields` list (`name`, `type`, `required`) for an object shape, or
-`values` for a string union. Read the shape from the manifest, not from
-component source.
-
 ## When NOT to use
 
 - Plain single-line text/number input with no calendar/time semantics → use `hof-cp-text-field` instead.
@@ -161,15 +153,18 @@ No slots — the manifest lists an empty `slots` array for this component.
 
 ## Fallthrough attributes
 
-`class` and `style` compose onto the root. Every other DOM attribute you write
-on the component — `id`, `aria-*`, `data-*` — lands on its rendered root
-element, so a `<label for>` resolves and an `aria-describedby` reference points
-at something real.
+`class` and `style` compose onto the root of all three. Every other attribute
+lands as follows:
 
-## Reduced motion
+| Component | Attributes go to | `id` | `aria-*`, `data-*` |
+| --- | --- | --- | --- |
+| `FuroDatePicker` | the date picker state root, which renders no element | the visually hidden input | dropped |
+| `FuroTimeField` | the time field `div` | the visually hidden input | the time field `div` |
+| `FuroDateTimePicker` | nothing | dropped | dropped |
 
-`FuroDatePicker`'s popover animation stops under `prefers-reduced-motion: reduce`. Do not add an app-level
-guard on top of it.
+The visually hidden input carries `tabindex="-1"`, so a `<label for>` aimed at
+that `id` points at an element the keyboard never reaches. Label these controls
+with an `aria-label` where it lands, or with visible text beside them.
 
 ## Usage
 
@@ -275,6 +270,4 @@ show the day before.
   the wire format for you.
 - Pass only the `parcel` keys this skill lists. A component reads the keys it
   names and ignores the rest, so a mistyped key changes nothing and reports
-  nothing. Some components warn in development through Vue's warning channel,
-  naming the unknown key and the accepted ones — but not every component does,
-  so check a key against the manifest rather than trusting silence.
+  nothing, so check a key against the manifest rather than trusting silence.
