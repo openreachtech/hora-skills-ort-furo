@@ -1,6 +1,6 @@
 ---
 name: hof-cp-date-time
-description: Use when building a date and/or time selection control in a repo that consumes @openreachtech/furo-vue — "date picker", "pick a date", "time input", "date and time field", "schedule at". Routes to FuroDatePicker, FuroTimeField, FuroDateTimePicker.
+description: Use when building a date and/or time selection control in a repo that consumes @openreachtech/furo-vue, such as "date picker", "pick a date", "time input", "date and time field", "schedule at". Routes to FuroDatePicker, FuroTimeField, FuroDateTimePicker. Also use when showing a timestamp on screen, such as "show the updated time", "format a date", "display in the user's time zone".
 ---
 
 # FuroDatePicker / FuroTimeField / FuroDateTimePicker
@@ -224,6 +224,41 @@ With a label/hint/error wrapper:
   </FuroControlBlock>
 </template>
 ```
+
+## Timestamps and the viewer's time zone
+
+A moment in time travels as an ISO 8601 instant carrying its offset, such as
+`2026-10-13T06:12:21Z`, and is shown in the viewer's own time zone. The server
+stores and returns the instant; the screen alone decides the zone.
+
+**Display** a timestamp with `Intl.DateTimeFormat`, passing the locale and
+leaving `timeZone` unset, so the browser applies the viewer's zone:
+
+```js
+formatUpdatedAt ({
+  updatedAt,
+  locale,
+}) {
+  return new Intl.DateTimeFormat(locale, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  })
+    .format(new Date(updatedAt))
+}
+```
+
+Do not slice the ISO string or print it as it arrives: either one shows the
+server's zone, which is UTC for most APIs.
+
+**Send** what `FuroDateTimePicker` selects as an instant. Its
+`YYYY-MM-DDTHH:MM:SS` value carries no offset, and JavaScript reads such a
+string as the viewer's local time, so `new Date(value).toISOString()` turns it
+into the instant the viewer meant.
+
+A date with no time, such as a birthday or a due date, is not a moment. Keep
+it as the `YYYY-MM-DD` string `FuroDatePicker` emits, and never pass it
+through `new Date()`, which reads a date-only string as UTC midnight and can
+show the day before.
 
 ## Rules (per project conventions)
 

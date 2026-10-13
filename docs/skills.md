@@ -27,7 +27,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 | `hof-cp-select` | Picking one or more values from a list — searchable dropdown, typeahead, multi-select. Routes to `FuroSelect`, `FuroAutocompleteField`. |
 | `hof-cp-checkbox-toggle` | A boolean control — checkbox, on/off switch, toolbar toggle button. Routes to `FuroCheckbox`, `FuroToggle`. |
 | `hof-cp-toggle-group` | A segmented toggle control, or a keyboard-navigable container grouping buttons, toggles and separators. Routes to `FuroToggleGroup`, `FuroToolBar`. |
-| `hof-cp-date-time` | A date and/or time selection control. Routes to `FuroDatePicker`, `FuroTimeField`, `FuroDateTimePicker`. |
+| `hof-cp-date-time` | A date and/or time selection control. Routes to `FuroDatePicker`, `FuroTimeField`, `FuroDateTimePicker`, and shows a timestamp in the viewer's time zone. |
 | `hof-cp-editor` | A rich-text editing area — WYSIWYG field, comment editor, chat composer with mentions. Routes to `FuroEditor`. |
 | `hof-cp-editable-field` | An inline click-to-edit value display. Routes to `FuroEditableField`. |
 | `hof-cp-control-block` | Wraps a form field with a label, hint, required marker or validation error message. Routes to `FuroControlBlock`. |

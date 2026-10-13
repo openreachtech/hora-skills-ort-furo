@@ -27,7 +27,7 @@
 | `hof-cp-select` | リストから 1 つ以上の値を選ぶ(検索付きドロップダウン、タイプアヘッド、複数選択)。`FuroSelect`・`FuroAutocompleteField` へ振り分けます。 |
 | `hof-cp-checkbox-toggle` | 真偽値のコントロール(チェックボックス、オン/オフスイッチ、ツールバーのトグルボタン)。`FuroCheckbox`・`FuroToggle` へ振り分けます。 |
 | `hof-cp-toggle-group` | セグメンテッドなトグルコントロール、またはボタン・トグル・区切りをまとめてキーボード操作できるコンテナ。`FuroToggleGroup`・`FuroToolBar` へ振り分けます。 |
-| `hof-cp-date-time` | 日付・時刻の選択コントロール。`FuroDatePicker`・`FuroTimeField`・`FuroDateTimePicker` へ振り分けます。 |
+| `hof-cp-date-time` | 日付・時刻の選択コントロール。`FuroDatePicker`・`FuroTimeField`・`FuroDateTimePicker` へ振り分け、日時を閲覧者のタイムゾーンで表示します。 |
 | `hof-cp-editor` | リッチテキストの編集領域(WYSIWYG、書式付きコメント、メンション付きチャット入力)。`FuroEditor` へ振り分けます。 |
 | `hof-cp-editable-field` | クリックしてその場で編集する値の表示。`FuroEditableField` へ振り分けます。 |
 | `hof-cp-control-block` | フォームフィールドをラベル・ヒント・必須マーク・エラーメッセージで包みます。`FuroControlBlock` へ振り分けます。 |
