@@ -33,6 +33,6 @@ mutation. Each operation is a **Launcher / Payload / Capsule trio** built on Fur
 | --- | --- | --- |
 | Trio anatomy | Folder & file layout, Payload (`document` + `RequestVariables`), Capsule (value-hash getters + `ResponseContent`), Launcher, naming & placement | [operations-anatomy](references/operations-anatomy.md) |
 | Base classes | What `BaseAppGraphql*` give you for free — error/auth helpers, access-token header injection, runtime `graphqlConfig` | [operations-base-classes](references/operations-base-classes.md) |
-| Consuming | Creating the client in `setup`, `graphqlClientHash`, `invokeRequest*` variants, `capsuleRef`, launcher hooks | [operations-consuming](references/operations-consuming.md) |
+| Consuming | Creating the client in `setup`, `graphqlClientHash`, `invokeRequest*` variants, `capsuleRef`, launcher hooks, several calls to one operation at once | [operations-consuming](references/operations-consuming.md) |
 | Generating the trio | Running the generator against the backend schema, `--out`/`--target`/`--depth` flags, the no-`--force` rule | [operations-generation](references/operations-generation.md) |
 | Trio generator script | The generator itself — reads backend `.graphql` schemas and emits query/mutation trios | [generate-graphql-clients.js](references/generate-graphql-clients.js) |
