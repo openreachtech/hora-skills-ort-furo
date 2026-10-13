@@ -46,8 +46,8 @@ through a composite `--font-*` role rather than a bare `font-size`.
 
 | Token | What reads it |
 | --- | --- |
-| `--color-border` | Container outlines and dividers — cards, menus, overlays, table rules, separators |
-| `--color-input` | Control boundaries, and the graphical controls a reader drags — field, textarea and select borders, radio and checkbox boxes, outline buttons and toggles, the switch off track, a scrollbar thumb, a splitter grip, a column-resize bar |
+| `--color-border` | Container outlines and dividers: menus, overlays, table rules, separators, toolbar and stepper outlines, outline toggles and toggle group items, a scrollbar thumb, a splitter grip, a column-resize bar |
+| `--color-input` | Control boundaries: field, textarea, select and editor borders, radio and checkbox boxes, outline buttons, the switch off track |
 
 There is no `--color-border-strong`. A control that needs the stronger edge
 reads `--color-input`.
