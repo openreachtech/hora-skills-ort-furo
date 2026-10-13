@@ -71,7 +71,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 
 | Skill | Summary |
 | :-- | :-- |
-| `hof-cookie-authentication` | Cookie-based authentication for a Furo/Nuxt app — the in-memory session layer (token store, renew, 401/205 self-heal, route gateway, sign-out), the auth GraphQL clients, and serving same-origin so the refresh cookie stays first-party. |
+| `hof-cookie-authentication` | Password sign-in with a refresh cookie for a Furo/Nuxt app — the in-memory session layer (token store, renew, 401/205 self-heal, route gateway, sign-out), the auth GraphQL clients, and serving same-origin so the refresh cookie stays first-party. |
 
 ### Error handling
 
