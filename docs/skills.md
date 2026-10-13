@@ -19,6 +19,8 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 
 ### Components
 
+The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `1.4.0`.
+
 | Skill | Summary |
 | :-- | :-- |
 | `hof-cp-button` | A clickable action trigger — submit, primary, icon or loading button. Routes to `FuroButton`. |
