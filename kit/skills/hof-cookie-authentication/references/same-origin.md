@@ -37,9 +37,9 @@ vite: {
 
 `changeOrigin: true` rewrites the Host header, so the upstream `Set-Cookie` attaches to the app's origin — first-party. If the backend sets an explicit cookie `Domain`, add `cookieDomainRewrite`.
 
-## Prod: nginx reverse-proxy
+## Prod: reverse proxy
 
-The vite proxy is dev-only. In production a reverse proxy keeps the app same-origin — serve the static SPA at `/` and forward the API paths to the backend on loopback:
+The vite proxy is dev-only. In production a reverse proxy keeps the app same-origin. Serve the static SPA at `/` and forward the API paths to the backend. Any proxy that routes by path does this, a managed cloud load balancer included; nginx forwarding to the backend on loopback is the sample:
 
 ```nginx
 location /graphql-customer {

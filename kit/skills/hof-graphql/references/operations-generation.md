@@ -5,7 +5,7 @@ Prefer generating the Launcher/Payload/Capsule trio from the backend GraphQL sch
 Run it from the Frontend project root with Node (the project is ESM and has `graphql` installed):
 
 ```bash
-node lib/skills/frontend/hof-graphql/references/generate-graphql-clients.js \
+node .claude/skills/hof-graphql/references/generate-graphql-clients.js \
   <backend-repo>/server/graphql/schemas \
   --out app/graphql/client
 ```

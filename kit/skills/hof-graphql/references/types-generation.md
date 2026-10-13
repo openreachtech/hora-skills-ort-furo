@@ -5,7 +5,7 @@ Prefer regenerating `types/graphql-schema.d.ts` from the backend GraphQL schema 
 Run it from the Frontend project root with Node (the project is ESM and has `graphql` installed):
 
 ```bash
-node lib/skills/frontend/hof-graphql/references/generate-graphql-types.js \
+node .claude/skills/hof-graphql/references/generate-graphql-types.js \
   <backend-repo>/server/graphql/schemas \
   --out types/graphql-schema.d.ts
 ```
