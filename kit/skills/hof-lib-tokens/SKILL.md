@@ -1,6 +1,6 @@
 ---
 name: hof-lib-tokens
-description: Use when re-theming or overriding the component library's own semantic tokens from a consumer app — "change the library's primary colour", "make the field borders lighter", "our brand red", "retime the library's transitions". Covers the published token prefixes, the two border tiers, the intent text tier and the easing tokens.
+description: Use when re-theming or overriding the component library's own semantic tokens from a consumer app, such as "change the library's primary colour", "make the field borders lighter", "our brand red", "retime the library's transitions". Covers the published token prefixes, the two border tiers, the intent roles and the easing tokens.
 ---
 
 # The component library's semantic tokens
@@ -52,20 +52,23 @@ through a composite `--font-*` role rather than a bare `font-size`.
 There is no `--color-border-strong`. A control that needs the stronger edge
 reads `--color-input`.
 
-## The intent text tier
+## The intent roles
 
-Each intent family ships three roles, and re-pointing the family means moving
-all three — the `-text` tier does **not** follow the fill.
+Each intent family ships these roles:
 
 | Role | Read as |
 | --- | --- |
-| `--color-{destructive,error,info,success,warning}` | The fill, and the border of an invalid control |
+| `--color-{destructive,error,info,success,warning}` | The fill, the border of an invalid control, and the family read as text: a validation message, a required marker, an error glyph, a table's error row |
 | `--color-…-foreground` | A label sitting **on** that fill |
-| `--color-…-text` | The family read as text or as a surfaceless graphic — a validation message, a required marker, a table's error row, a badge label or dot |
+| `--color-{error,info,success,warning}-subtle` | A tinted surface, such as a badge |
+| `--color-…-subtle-foreground` | Text sitting on that tinted surface |
 
-A fill is not legible as text, which is why the text tier is a role of its own.
-Re-pointing `--color-destructive` alone leaves every validation message on
-the library's own step.
+The library has no separate role for a family read as text, so the fill
+colours text too. `--color-destructive` resolves to `--palette-rose-500`,
+3.67:1 on white and below the 4.5:1 floor for text. A project that needs
+AA-passing danger text re-points `--color-destructive` to a darker step, such
+as `--palette-rose-700` (6.29:1), and accepts that the fill and the invalid
+border darken with it.
 
 ## Easing
 
@@ -85,8 +88,8 @@ Neither is redefined for the dark theme — a curve carries no colour.
   component's CSS. A component's own rules live inside a cascade layer, so an app
   stylesheet outside that layer already wins where it needs to — reaching into
   the component is never the fix.
-- Re-point an intent family's fill, its `-foreground` companion and its `-text`
-  tier together, or leave all three alone.
+- Re-point an intent family's fill and its `-foreground` companion together,
+  and check the label still clears 4.5:1 on the new fill.
 - A colour a component needs but the token layer does not publish is a library
   gap worth reporting, not a hex value to inline in the app.
 - Do not invent a token name in the library's namespace. A new prefix is a change to
