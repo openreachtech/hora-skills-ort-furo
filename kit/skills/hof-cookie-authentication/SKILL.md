@@ -29,4 +29,4 @@ This is application code built on top of the boilerplate's generic `BaseAppGraph
 | Sign-out | `SessionRevoker` + the `signOut` client + the sign-out UI trigger — revoke server-side, then drop the token | [sign-out](references/sign-out.md) |
 | Auth GraphQL clients | The `signIn` / `renewAccessToken` / `signOut` Launcher/Payload/Capsule trios on the base classes | [auth-clients](references/auth-clients.md) |
 | Error codes | `app/constants-error.js` plus the capsule `isUnauthenticated()` / `isRefreshTokenReused()` checks | [error-codes](references/error-codes.md) |
-| Same-origin | Relative `.furo-env` endpoints, the vite dev proxy, and the nginx production reverse-proxy sample | [same-origin](references/same-origin.md) |
+| Same-origin | Relative `.furo-env` endpoints, the vite dev proxy, and the production reverse proxy (nginx sample) | [same-origin](references/same-origin.md) |
