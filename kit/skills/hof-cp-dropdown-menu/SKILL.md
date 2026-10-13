@@ -22,14 +22,6 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
-Each manifest record also carries a `types` array beside `slots`. When a prop,
-`parcel` field, or event payload names a nested type
-(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
-record's `types` array — each entry carries the authored `definition` plus a
-parsed `fields` list (`name`, `type`, `required`) for an object shape, or
-`values` for a string union. Read the shape from the manifest, not from
-component source.
-
 ## When NOT to use
 
 - A single one-shot action with no menu of choices → use `hof-cp-button` directly instead.
@@ -78,10 +70,8 @@ checkbox rows yourself and pass it back in via `parcel.options`.
 
 ## Fallthrough attributes
 
-`class` and `style` compose onto the root. Every other DOM attribute you write
-on the component — `id`, `aria-*`, `data-*` — lands on its wrapper
-element, so a `<label for>` resolves and an `aria-describedby` reference points
-at something real.
+`class` and `style` compose onto the root. Every other attribute you write on
+the component (`id`, `aria-*`, `data-*`) is dropped and reaches no element.
 
 ## Usage
 
@@ -136,6 +126,4 @@ With a checkbox row whose checked state is owned by the Context:
   inline in the template.
 - Pass only the `parcel` keys this skill lists. A component reads the keys it
   names and ignores the rest, so a mistyped key changes nothing and reports
-  nothing. Some components warn in development through Vue's warning channel,
-  naming the unknown key and the accepted ones — but not every component does,
-  so check a key against the manifest rather than trusting silence.
+  nothing, so check a key against the manifest rather than trusting silence.

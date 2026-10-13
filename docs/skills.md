@@ -19,6 +19,8 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 
 ### Components
 
+The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `1.4.0`.
+
 | Skill | Summary |
 | :-- | :-- |
 | `hof-cp-button` | A clickable action trigger — submit, primary, icon or loading button. Routes to `FuroButton`. |
@@ -27,7 +29,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 | `hof-cp-select` | Picking one or more values from a list — searchable dropdown, typeahead, multi-select. Routes to `FuroSelect`, `FuroAutocompleteField`. |
 | `hof-cp-checkbox-toggle` | A boolean control — checkbox, on/off switch, toolbar toggle button. Routes to `FuroCheckbox`, `FuroToggle`. |
 | `hof-cp-toggle-group` | A segmented toggle control, or a keyboard-navigable container grouping buttons, toggles and separators. Routes to `FuroToggleGroup`, `FuroToolBar`. |
-| `hof-cp-date-time` | A date and/or time selection control. Routes to `FuroDatePicker`, `FuroTimeField`, `FuroDateTimePicker`. |
+| `hof-cp-date-time` | A date and/or time selection control. Routes to `FuroDatePicker`, `FuroTimeField`, `FuroDateTimePicker`, and shows a timestamp in the viewer's time zone. |
 | `hof-cp-editor` | A rich-text editing area — WYSIWYG field, comment editor, chat composer with mentions. Routes to `FuroEditor`. |
 | `hof-cp-editable-field` | An inline click-to-edit value display. Routes to `FuroEditableField`. |
 | `hof-cp-control-block` | Wraps a form field with a label, hint, required marker or validation error message. Routes to `FuroControlBlock`. |
@@ -58,7 +60,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 | `hof-layout-margin` | Spacing in Flex/Grid is the container's responsibility; layout items carry no margin. Even spacing uses `gap`, exceptions are owned from the parent. |
 | `hof-selector-props-sort` | Property ordering (Outer-to-Inner Order) — categorize by what the property applies to and order outer to inner, alphabetically within a group. |
 | `hof-animation` | UI animation conventions — whether and why an element animates, easing from the `--transition-timing-*` tokens, and the entry/popover/tooltip/blur techniques that keep motion responsive. |
-| `hof-lib-tokens` | Re-theming the component library's own semantic tokens from a consumer app — the published prefixes, the two border tiers, the intent text tier and the easing tokens. |
+| `hof-lib-tokens` | Re-theming the component library's own semantic tokens from a consumer app: the published prefixes, the two border tiers, the intent roles and the easing tokens. |
 
 ### API clients
 

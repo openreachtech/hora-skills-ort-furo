@@ -26,14 +26,6 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
-Each manifest record also carries a `types` array beside `slots`. When a prop,
-`parcel` field, or event payload names a nested type
-(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
-record's `types` array — each entry carries the authored `definition` plus a
-parsed `fields` list (`name`, `type`, `required`) for an object shape, or
-`values` for a string union. Read the shape from the manifest, not from
-component source.
-
 ## When NOT to use
 
 - Free-form text entry, not a pick from a list → use `hof-cp-text-field`.
@@ -149,17 +141,30 @@ fires at the selection point.
 
 ## Fallthrough attributes on `FuroSelect`
 
-Attributes written on `<FuroSelect>` are split by where they belong, because the
-component's state root renders no element of its own:
+`FuroSelect` hands every fallthrough attribute except `class` and `style` to
+its state root, which renders no element and binds no attribute it does not
+read:
 
 | Attribute | Lands on |
 | --- | --- |
-| `id`, `aria-label`, `aria-labelledby`, `aria-describedby`, `data-*`, `title`, `tabindex`, … | the trigger — the `<button role="combobox">`, so a `<label for>` resolves |
-| `name`, `required`, `disabled`, `value`, `autocomplete`, `by` | the control itself; behaviour unchanged |
+| `name`, `required`, `disabled`, `autocomplete`, `by` | the control itself |
 | `class`, `style` | the wrapper |
+| `id`, `aria-label`, `aria-labelledby`, `aria-describedby`, `data-*`, `title`, … | nowhere: dropped |
 
-`triggerParcel` is applied after fallthrough, so an attribute declared there wins
-over the same one arriving by fallthrough.
+The trigger, the `<button role="combobox">` a `<label for>` has to reach,
+receives only `triggerParcel`. Put `id` and `aria-*` there:
+
+```vue
+<FuroSelect
+  v-model:value="context.formValueReactive.territory"
+  name="territory"
+  :parcel="{ options: context.extractTerritoryOptions() }"
+  :trigger-parcel="{
+    id: 'territory-select',
+    'aria-describedby': 'territory-error',
+  }"
+/>
+```
 
 ## Usage
 
@@ -228,11 +233,8 @@ export default {
   create-option persistence in the page/component Context
   (`on{Field}SearchKeyword`, `on{Field}CreateOption` style methods), not
   inline in the template.
-- Put `id` and `aria-*` on `<FuroSelect>` as plain fallthrough attributes and
-  let the split route them to the trigger — do not reach for `triggerParcel` to
-  place an `id`, and do not put `name` / `required` / `disabled` there.
+- Put `id` and `aria-*` in `triggerParcel`, the only route to the trigger, and
+  keep `name` / `required` / `disabled` on `<FuroSelect>` itself.
 - Pass only the `parcel` keys this skill lists. A component reads the keys it
   names and ignores the rest, so a mistyped key changes nothing and reports
-  nothing. Some components warn in development through Vue's warning channel,
-  naming the unknown key and the accepted ones — but not every component does,
-  so check a key against the manifest rather than trusting silence.
+  nothing, so check a key against the manifest rather than trusting silence.

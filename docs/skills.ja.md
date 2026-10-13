@@ -19,6 +19,8 @@
 
 ### コンポーネント
 
+コンポーネントのスキルと `hof-lib-tokens` は `@openreachtech/furo-vue` `1.4.0` を前提にしています。
+
 | スキル | 概要 |
 | :-- | :-- |
 | `hof-cp-button` | クリックで動作するアクショントリガー(送信・プライマリ・アイコン・ローディングボタン)。`FuroButton` へ振り分けます。 |
@@ -27,7 +29,7 @@
 | `hof-cp-select` | リストから 1 つ以上の値を選ぶ(検索付きドロップダウン、タイプアヘッド、複数選択)。`FuroSelect`・`FuroAutocompleteField` へ振り分けます。 |
 | `hof-cp-checkbox-toggle` | 真偽値のコントロール(チェックボックス、オン/オフスイッチ、ツールバーのトグルボタン)。`FuroCheckbox`・`FuroToggle` へ振り分けます。 |
 | `hof-cp-toggle-group` | セグメンテッドなトグルコントロール、またはボタン・トグル・区切りをまとめてキーボード操作できるコンテナ。`FuroToggleGroup`・`FuroToolBar` へ振り分けます。 |
-| `hof-cp-date-time` | 日付・時刻の選択コントロール。`FuroDatePicker`・`FuroTimeField`・`FuroDateTimePicker` へ振り分けます。 |
+| `hof-cp-date-time` | 日付・時刻の選択コントロール。`FuroDatePicker`・`FuroTimeField`・`FuroDateTimePicker` へ振り分け、日時を閲覧者のタイムゾーンで表示します。 |
 | `hof-cp-editor` | リッチテキストの編集領域(WYSIWYG、書式付きコメント、メンション付きチャット入力)。`FuroEditor` へ振り分けます。 |
 | `hof-cp-editable-field` | クリックしてその場で編集する値の表示。`FuroEditableField` へ振り分けます。 |
 | `hof-cp-control-block` | フォームフィールドをラベル・ヒント・必須マーク・エラーメッセージで包みます。`FuroControlBlock` へ振り分けます。 |
@@ -58,7 +60,7 @@
 | `hof-layout-margin` | Flex / Grid の余白はコンテナの責務で、レイアウトアイテムは margin を持ちません。均等な余白は `gap`、例外的な余白は親から子セレクタで指定します。 |
 | `hof-selector-props-sort` | CSS プロパティの並び順(Outer-to-Inner Order)。プロパティが何に作用するかで分類し、外側から内側へ並べ、グループ内はアルファベット順にします。 |
 | `hof-animation` | UI アニメーションの規約。そもそも動かすべきか、`--transition-timing-*` トークンからのイージング選択、入場・ポップオーバー・ツールチップ・ブラーの手法。 |
-| `hof-lib-tokens` | 消費側アプリからコンポーネントライブラリ自身のセマンティックトークンを上書きする規約。公開されているプレフィックス、2 層のボーダー、intent のテキスト層、イージングトークン。 |
+| `hof-lib-tokens` | 消費側アプリからコンポーネントライブラリ自身のセマンティックトークンを上書きする規約。公開されているプレフィックス、2 層のボーダー、intent のロール、イージングトークン。 |
 
 ### API クライアント
 
