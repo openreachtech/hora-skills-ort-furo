@@ -1,6 +1,6 @@
 ---
 name: hof-cookie-authentication
-description: "Cookie-based authentication for a Furo/Nuxt app: the in-memory session layer (token store, renew, 401/205 self-heal, route gateway, sign-out), the auth GraphQL clients (signIn / renewAccessToken / signOut), and serving same-origin (vite proxy + nginx) so the refresh cookie is first-party. Use when adding cookie auth to a Furo app. Boundary: the base GraphQL client classes stay in the boilerplate; the backend token schema and resolvers are the backend cookie-authentication convention."
+description: "Password sign-in with an in-memory access token and an HttpOnly refresh cookie in a Furo/Nuxt app: the session layer, the auth GraphQL clients, and same-origin serving. Use when adding cookie auth to a Furo app. Boundary: a session cookie the backend sets after an OIDC or SSO sign-in is not this pattern; the base GraphQL client classes stay in the boilerplate; the backend token schema and resolvers are the backend cookie-authentication convention."
 metadata:
   author: OpenReachTech
   version: "2026.08.18"
@@ -11,6 +11,8 @@ metadata:
 Use this skill when adding cookie-based authentication to a Furo/Nuxt app — holding the session, renewing the access token on a 401, guarding routes, signing out, or serving same-origin.
 
 The app keeps a short-lived **access token in a Nuxt `useState` store** (never `localStorage`) and sends it as a header on every request; the **refresh token is an HttpOnly cookie** the browser sends on its own. When the access token expires the app renews it from the cookie and retries the request once; sign-out revokes the cookie server-side. Every decision lives in a plain, injectable class ([[hoc-jest]]-tested); the composable and middleware are thin Nuxt-context bridges. The refresh cookie is first-party only when the app is served **same-origin** with the API.
+
+The pattern covers password sign-in, where the app holds an access token. A session cookie the backend sets after an OIDC or SSO sign-in leaves the app no token to hold, so this skill does not apply to it.
 
 This is application code built on top of the boilerplate's generic `BaseAppGraphql*` classes ([[hof-graphql]]) — it is not in the boilerplate itself. The base payload is token-free; this skill attaches the token per request.
 
