@@ -145,7 +145,10 @@ this skill was written.
 
 ### FuroTimeField
 
-No slots — the manifest lists an empty `slots` array for this component.
+| Slot | Description |
+| --- | --- |
+| `decrement-icon` | Replaces the caret-down icon in the decrement stepper. |
+| `increment-icon` | Replaces the caret-up icon in the increment stepper. |
 
 ### FuroDateTimePicker
 
