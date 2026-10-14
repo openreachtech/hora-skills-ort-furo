@@ -106,9 +106,8 @@ the fields passed to `toast.show({ ... })` (`title`, `description`, `type`,
 | `label` | Before 1.5.0 | From 1.5.0 |
 | --- | --- | --- |
 | Announcement of each toast | Prefixed with `label` | Prefixed with `label` |
-| Accessible name of the region, `label` set on `FuroToast` | The fixed English name `Notifications (F8)`, whatever `label` holds | `label`, with any `{hotkey}` placeholder filled |
-| Accessible name of the region, `label` unset on `FuroToast` | `Notifications (F8)` | `Notifications (F8)` |
-| Accessible name of the region under `FuroToaster` | `Notifications (F8)` | The configured `label`, which defaults to `Notifications` without the hotkey |
+| Accessible name of the region, `label` set (`parcel.label` or `toast.configure({ label })`) | The fixed English name `Notifications (F8)`, whatever `label` holds | `label`, with any `{hotkey}` placeholder filled |
+| Accessible name of the region, `label` unset (`FuroToast` or `FuroToaster`) | `Notifications (F8)` | `Notifications (F8)` |
 
 - In every `Notifications (F8)` above, a `hotkey` the app sets takes the place
   of `F8`.
