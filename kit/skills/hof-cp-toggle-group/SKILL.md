@@ -42,7 +42,7 @@ written.
 
 | Field | Type | Default | Notes |
 | --- | --- | --- | --- |
-| `value` | `string \| string[]` | — | Controlled selection. Present → controlled; absent → uncontrolled. A single value in single mode, an array in multiple mode. |
+| `value` | `string \| string[]` | none | Controlled selection. A `parcel` that has the key is controlled, even when it holds `null`; one without it is uncontrolled. A single value in single mode, an array in multiple mode. See [Controlled value](#controlled-value). |
 | `selectionMode` | `'single' \| 'multiple'` | `'single'` | Whether one or many options may be pressed at once. |
 | `options` | `Array<{ value, label?, disabled? }>` | `[]` | The toggle items. `label` falls back to `value` when omitted. |
 | `variant` | `'default' \| 'outline'` | `'default'` | Item styling — outline adds a border. |
@@ -62,6 +62,37 @@ written.
 | Slot | Scoped props | Description |
 | --- | --- | --- |
 | `option` | `{ option, pressed }` | Custom item content (e.g. icons). Defaults to the option's label. `pressed` reflects whether the option is selected. |
+
+### Controlled value
+
+A click always emits `change-value` and `update:value` with the new selection.
+What the group shows afterwards depends on the version:
+
+| Controlled group (`parcel` has `value`) | Before 1.5.0 | From 1.5.0 |
+| --- | --- | --- |
+| After a click | Shows the clicked selection at once, whether or not the parent accepts it | Keeps showing `parcel.value` until the parent writes the new value back |
+| Parent ignores or rejects the emitted value | The group drifts from `parcel.value`, and returns to it only when `parcel.value` next changes | The group stays on `parcel.value` |
+| Click on the pressed item in single mode | Clears the display while the parent still holds the value | Emits `null`; the display clears only when the parent writes `null` back |
+
+An uncontrolled group, whose `parcel` has no `value` key, manages its own
+selection in both versions.
+
+From 1.5.0, a controlled group needs its parent to write the emitted value
+back, or it never moves:
+
+```vue
+<FuroToggleGroup
+  :parcel="{
+    value: form.textAlign,
+    options: context.textAlignOptions,
+  }"
+  @update:value="context.onUpdateTextAlign({ value: $event })"
+/>
+```
+
+To refuse a change, such as keeping one option always pressed, skip the write
+in the handler. From 1.5.0 the group then stays put; on 1.4.0 it shows the
+refused selection anyway.
 
 ## FuroToolBar
 
