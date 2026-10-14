@@ -22,14 +22,6 @@ Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
 
-Each manifest record also carries a `types` array beside `slots`. When a prop,
-`parcel` field, or event payload names a nested type
-(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
-record's `types` array — each entry carries the authored `definition` plus a
-parsed `fields` list (`name`, `type`, `required`) for an object shape, or
-`values` for a string union. Read the shape from the manifest, not from
-component source.
-
 ## When NOT to use
 
 - Needs a menu of discrete actions (not a click-anchored surface with slot content) → use `hof-cp-dropdown-menu`.
@@ -94,11 +86,20 @@ Both components take a single `parcel` prop — no other props.
 | `trigger` | The element the tooltip is anchored to. Focusable by default (rendered as a button). |
 | `content` | Rich tooltip body. Falls back to `parcel.text` when omitted. |
 
-## A consumer `id` does not land
+## Fallthrough attributes on `FuroPopover`
 
-An `id` written on `<FuroPopover>` is not surfaced in the rendered DOM. Do not
-hang a `<label for>`, an `aria-*` reference, or an E2E hook off it — put it on a
-wrapper element you own, or on the content you pass through a slot.
+`FuroPopover` hands every fallthrough attribute, `class` and `style` included,
+to the trigger button. The trigger keeps the attributes it sets itself:
+
+| Attribute | Lands on |
+| --- | --- |
+| `class`, `style`, `aria-label`, `data-*`, `title`, … | the trigger button |
+| `id` | nowhere: the trigger keeps its generated id |
+| `aria-haspopup`, `aria-expanded`, `aria-controls`, `data-state` | nowhere: the trigger's own values win |
+
+Do not hang a `<label for>` or an `aria-*` reference off a consumer `id`. Put
+the `id` on a wrapper element you own, or on the content you pass through a
+slot.
 
 ## Usage
 
@@ -160,6 +161,4 @@ export default {
   submits) in the page/component Context, not inline in the template.
 - Pass only the `parcel` keys this skill lists. A component reads the keys it
   names and ignores the rest, so a mistyped key changes nothing and reports
-  nothing. Some components warn in development through Vue's warning channel,
-  naming the unknown key and the accepted ones — but not every component does,
-  so check a key against the manifest rather than trusting silence.
+  nothing, so check a key against the manifest rather than trusting silence.

@@ -1,6 +1,6 @@
 ---
 name: hof-cp-date-time
-description: Use when building a date and/or time selection control in a repo that consumes @openreachtech/furo-vue — "date picker", "pick a date", "time input", "date and time field", "schedule at". Routes to FuroDatePicker, FuroTimeField, FuroDateTimePicker.
+description: Use when building a date and/or time selection control in a repo that consumes @openreachtech/furo-vue, such as "date picker", "pick a date", "time input", "date and time field", "schedule at". Routes to FuroDatePicker, FuroTimeField, FuroDateTimePicker. Also use when showing a timestamp on screen, such as "show the updated time", "format a date", "display in the user's time zone".
 ---
 
 # FuroDatePicker / FuroTimeField / FuroDateTimePicker
@@ -22,14 +22,6 @@ timestamp), not on how you want it to look.
 Read the manifest before writing markup if you need to confirm this
 information is still current — the library may have added props/events since
 this skill was written.
-
-Each manifest record also carries a `types` array beside `slots`. When a prop,
-`parcel` field, or event payload names a nested type
-(`Array<FuroSelectOption>`, `FuroTableColumn`, …), read that name from the same
-record's `types` array — each entry carries the authored `definition` plus a
-parsed `fields` list (`name`, `type`, `required`) for an object shape, or
-`values` for a string union. Read the shape from the manifest, not from
-component source.
 
 ## When NOT to use
 
@@ -153,7 +145,10 @@ component source.
 
 ### FuroTimeField
 
-No slots — the manifest lists an empty `slots` array for this component.
+| Slot | Description |
+| --- | --- |
+| `decrement-icon` | Replaces the caret-down icon in the decrement stepper. |
+| `increment-icon` | Replaces the caret-up icon in the increment stepper. |
 
 ### FuroDateTimePicker
 
@@ -161,15 +156,18 @@ No slots — the manifest lists an empty `slots` array for this component.
 
 ## Fallthrough attributes
 
-`class` and `style` compose onto the root. Every other DOM attribute you write
-on the component — `id`, `aria-*`, `data-*` — lands on its rendered root
-element, so a `<label for>` resolves and an `aria-describedby` reference points
-at something real.
+`class` and `style` compose onto the root of all three. Every other attribute
+lands as follows:
 
-## Reduced motion
+| Component | Attributes go to | `id` | `aria-*`, `data-*` |
+| --- | --- | --- | --- |
+| `FuroDatePicker` | the date picker state root, which renders no element | the visually hidden input | dropped |
+| `FuroTimeField` | the time field `div` | the visually hidden input | the time field `div` |
+| `FuroDateTimePicker` | nothing | dropped | dropped |
 
-`FuroDatePicker`'s popover animation stops under `prefers-reduced-motion: reduce`. Do not add an app-level
-guard on top of it.
+The visually hidden input carries `tabindex="-1"`, so a `<label for>` aimed at
+that `id` points at an element the keyboard never reaches. Label these controls
+with an `aria-label` where it lands, or with visible text beside them.
 
 ## Usage
 
@@ -225,6 +223,41 @@ With a label/hint/error wrapper:
 </template>
 ```
 
+## Timestamps and the viewer's time zone
+
+A moment in time travels as an ISO 8601 instant carrying its offset, such as
+`2026-10-13T06:12:21Z`, and is shown in the viewer's own time zone. The server
+stores and returns the instant; the screen alone decides the zone.
+
+**Display** a timestamp with `Intl.DateTimeFormat`, passing the locale and
+leaving `timeZone` unset, so the browser applies the viewer's zone:
+
+```js
+formatUpdatedAt ({
+  updatedAt,
+  locale,
+}) {
+  return new Intl.DateTimeFormat(locale, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  })
+    .format(new Date(updatedAt))
+}
+```
+
+Do not slice the ISO string or print it as it arrives: either one shows the
+server's zone, which is UTC for most APIs.
+
+**Send** what `FuroDateTimePicker` selects as an instant. Its
+`YYYY-MM-DDTHH:MM:SS` value carries no offset, and JavaScript reads such a
+string as the viewer's local time, so `new Date(value).toISOString()` turns it
+into the instant the viewer meant.
+
+A date with no time, such as a birthday or a due date, is not a moment. Keep
+it as the `YYYY-MM-DD` string `FuroDatePicker` emits, and never pass it
+through `new Date()`, which reads a date-only string as UTC midnight and can
+show the day before.
+
 ## Rules (per project conventions)
 
 - Pass `parcel` + use `v-model:value` — this is the one documented exception
@@ -240,6 +273,4 @@ With a label/hint/error wrapper:
   the wire format for you.
 - Pass only the `parcel` keys this skill lists. A component reads the keys it
   names and ignores the rest, so a mistyped key changes nothing and reports
-  nothing. Some components warn in development through Vue's warning channel,
-  naming the unknown key and the accepted ones — but not every component does,
-  so check a key against the manifest rather than trusting silence.
+  nothing, so check a key against the manifest rather than trusting silence.

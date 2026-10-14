@@ -80,7 +80,9 @@ PART A — HARD RULES  (pass/fail; enforced)
 - **Names & roles:** Icon-only buttons need an accessible name (`aria-label` or visually
   hidden text). Images need `alt`; decorative images use `alt=""`. Inputs need labels (§8).
 - **Don't signal by color alone:** Errors/status/required also carry text, icon, or shape.
-- **Target size:** Touch targets at least 44x44 CSS px (or equivalent spacing).
+- **Target size:** Touch targets at least 44x44 CSS px (or equivalent spacing). Furo's controls
+  default to 32px (`--size-input-height`), so raise them through the token, pointing it at
+  `--size-input-height-large` (44px), rather than per element.
 - **Live regions:** Async status uses `aria-live="polite"`; errors use `role="alert"`.
 
 ## 2. Color & Tokens

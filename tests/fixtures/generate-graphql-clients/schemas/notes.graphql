@@ -1,0 +1,22 @@
+type Note {
+  id: ID!
+  title: String!
+  body: String
+}
+
+type NoteCount {
+  label: String!
+  count: Int!
+}
+
+type Query {
+  note(id: ID!): Note
+  notes: [Note!]!
+  noteCounts: [NoteCount!]!
+}
+
+type Mutation {
+  createNote(title: String!): Note!
+  deleteNote(id: ID!): Boolean!
+  archiveNotesBefore(before: String!): Int!
+}

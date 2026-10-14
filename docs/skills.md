@@ -13,10 +13,13 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 | `hof-nuxt` | Build a Nuxt/Furo frontend the OpenReach way — pages, components, composables, `useState` stores, the AppShare service (`$furo`), middleware, plugins, layouts and ambient types. |
 | `hof-furo-context-patterns` | How to use Furo Context classes — `BaseAppContext` generics, the `create()`/`setupComponent()` lifecycle, DI from setup, watchers, and the `*PageContext`/`*Context` taxonomy. |
 | `hof-furo-env` | Configure Furo environment variables (`.furo-env` files) — adding or changing a variable, and wiring an endpoint or key. |
+| `hof-jsdoc` | JSDoc conventions that hold only in a Furo app — where type blocks sit, reactive and Vue prop types, Furo class and `create()` factory typing, and ambient globals used without an import. |
 | `hof-modules` | Reusable general logic lives in utility classes, not utility functions or composables — Furo follows an OOP structure. |
 | `hof-prohibits` | No JavaScript logic inside a `.vue` `<template>`; logic is moved onto members of the Context. |
 
 ### Components
+
+The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `1.4.0`.
 
 | Skill | Summary |
 | :-- | :-- |
@@ -26,7 +29,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 | `hof-cp-select` | Picking one or more values from a list — searchable dropdown, typeahead, multi-select. Routes to `FuroSelect`, `FuroAutocompleteField`. |
 | `hof-cp-checkbox-toggle` | A boolean control — checkbox, on/off switch, toolbar toggle button. Routes to `FuroCheckbox`, `FuroToggle`. |
 | `hof-cp-toggle-group` | A segmented toggle control, or a keyboard-navigable container grouping buttons, toggles and separators. Routes to `FuroToggleGroup`, `FuroToolBar`. |
-| `hof-cp-date-time` | A date and/or time selection control. Routes to `FuroDatePicker`, `FuroTimeField`, `FuroDateTimePicker`. |
+| `hof-cp-date-time` | A date and/or time selection control. Routes to `FuroDatePicker`, `FuroTimeField`, `FuroDateTimePicker`, and shows a timestamp in the viewer's time zone. |
 | `hof-cp-editor` | A rich-text editing area — WYSIWYG field, comment editor, chat composer with mentions. Routes to `FuroEditor`. |
 | `hof-cp-editable-field` | An inline click-to-edit value display. Routes to `FuroEditableField`. |
 | `hof-cp-control-block` | Wraps a form field with a label, hint, required marker or validation error message. Routes to `FuroControlBlock`. |
@@ -57,7 +60,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 | `hof-layout-margin` | Spacing in Flex/Grid is the container's responsibility; layout items carry no margin. Even spacing uses `gap`, exceptions are owned from the parent. |
 | `hof-selector-props-sort` | Property ordering (Outer-to-Inner Order) — categorize by what the property applies to and order outer to inner, alphabetically within a group. |
 | `hof-animation` | UI animation conventions — whether and why an element animates, easing from the `--transition-timing-*` tokens, and the entry/popover/tooltip/blur techniques that keep motion responsive. |
-| `hof-lib-tokens` | Re-theming the component library's own semantic tokens from a consumer app — the published prefixes, the two border tiers, the intent text tier and the easing tokens. |
+| `hof-lib-tokens` | Re-theming the component library's own semantic tokens from a consumer app: the published prefixes, the two border tiers, the intent roles and the easing tokens. |
 
 ### API clients
 
@@ -70,7 +73,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 
 | Skill | Summary |
 | :-- | :-- |
-| `hof-cookie-authentication` | Cookie-based authentication for a Furo/Nuxt app — the in-memory session layer (token store, renew, 401/205 self-heal, route gateway, sign-out), the auth GraphQL clients, and serving same-origin so the refresh cookie stays first-party. |
+| `hof-cookie-authentication` | Password sign-in with a refresh cookie for a Furo/Nuxt app — the in-memory session layer (token store, renew, 401/205 self-heal, route gateway, sign-out), the auth GraphQL clients, and serving same-origin so the refresh cookie stays first-party. |
 
 ### Error handling
 
