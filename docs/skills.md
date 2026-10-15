@@ -19,7 +19,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 
 ### Components
 
-The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `1.4.0`.
+The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `1.4.0` and `1.5.0`. `hof-cp-dialog`, `hof-cp-dropdown-menu`, `hof-cp-select`, `hof-cp-toast`, `hof-cp-toggle-group` and `hof-lib-tokens` mark where the two versions behave differently with a *Before 1.5.0* / *From 1.5.0* note.
 
 | Skill | Summary |
 | :-- | :-- |

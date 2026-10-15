@@ -151,6 +151,26 @@ All three take a single `parcel` prop — no other props.
 | `footer` (scoped: `{ close }`) | Footer region (e.g. action buttons). Receives a `close()` slot prop. |
 | `close` | Content of the built-in close button (defaults to ✕). |
 
+## Close button size
+
+| | Before 1.5.0 | From 1.5.0 |
+| --- | --- | --- |
+| `FuroDialog` and `FuroDrawer` built-in close button | Fixed at `1.75rem` wide and tall in the component's CSS | Reads `--size-close-button-medium`, which defaults to `1.75rem`, 28px |
+| Override from the app | Declaring the token changes nothing, because the component never reads it | Redefine the token, and the button follows |
+
+From 1.5.0, an app raises the button to a larger touch target by overriding the
+token as `/hof-lib-tokens` describes, never the dialog's CSS. The token holds
+one value in both themes, so put it on `:root`, either unlayered or in
+`@layer app`:
+
+```css
+:root {
+  --size-close-button-medium: 2.5rem;
+}
+```
+
+`FuroAlertDialog` has no close button, so the token does not touch it.
+
 ## Fallthrough attributes
 
 `class` and `style` compose onto the root. Every other attribute you write on

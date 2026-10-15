@@ -68,6 +68,26 @@ checkbox rows yourself and pass it back in via `parcel.options`.
 | `option-label` | Override row label rendering. Scoped props: `{ option, index }`. Defaults to `option.label` text. |
 | `default` | Append custom menu content (advanced). |
 
+## Row height
+
+| | Before 1.5.0 | From 1.5.0 |
+| --- | --- | --- |
+| Minimum height of a menu row | Fixed at `calc(var(--size-input-height) - 0.5rem)` in the component's CSS | Reads `--size-option-height`, which defaults to the same value, 24px |
+| Override from the app | Declaring the token changes nothing, because the component never reads it | Redefine the token, and every row follows |
+
+From 1.5.0, an app raises the rows to a larger touch target by overriding the
+token as `/hof-lib-tokens` describes, never the menu's CSS. The token holds one
+value in both themes, so put it on `:root`, either unlayered or in
+`@layer app`:
+
+```css
+:root {
+  --size-option-height: 2.5rem;
+}
+```
+
+`FuroSelect` option rows read the same token, so the override raises them too.
+
 ## Fallthrough attributes
 
 `class` and `style` compose onto the root. Every other attribute you write on

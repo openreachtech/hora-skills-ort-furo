@@ -1,6 +1,6 @@
 ---
 name: hof-lib-tokens
-description: Use when re-theming or overriding the component library's own semantic tokens from a consumer app, such as "change the library's primary colour", "make the field borders lighter", "our brand red", "retime the library's transitions". Covers the published token prefixes, the two border tiers, the intent roles and the easing tokens.
+description: Use when re-theming or overriding the component library's own semantic tokens from a consumer app, such as "change the library's primary colour", "make the field borders lighter", "our brand red", "retime the library's transitions". Covers where an override sits in the cascade, the published token prefixes, the two border tiers, the intent roles, the easing tokens and the control size tokens.
 ---
 
 # The component library's semantic tokens
@@ -17,13 +17,31 @@ carries the reasoning behind each role.
 
 ## How a consumer re-themes
 
-1. Load your override file **after** the library stylesheet.
-2. Redefine **semantic** tokens only — never a `--palette-*` primitive, and
-   never a library component's CSS.
-3. Write the override under `[data-theme="light"]` / `[data-theme="dark"]`, not
-   bare `:root`, whenever the app sets `data-theme`. The library's own theme blocks are
-   attribute-scoped, so a bare `:root` rule loses to them.
-4. Keep the light and dark blocks in sync, so both schemes stay legible.
+Redefine **semantic** tokens only, never a `--palette-*` primitive and never a
+library component's CSS, and keep the light and dark blocks in sync so both
+schemes stay legible. Where the override sits depends on the library version:
+
+| | Before 1.5.0 | From 1.5.0 |
+| --- | --- | --- |
+| Library tokens | Declared outside any cascade layer | Declared inside `@layer furo` |
+| Unlayered override file | Wins only when it loads after the library stylesheet | Wins wherever it loads |
+| Override inside `@layer app`, which `/hof-css-layers` orders after `furo` | Loses to the library tokens, because an unlayered declaration beats every layered one | Wins |
+| Override on bare `:root` | Competes with the library's `[data-theme="..."]` blocks on load order and specificity | Beats both theme blocks, so the token holds one value in both themes |
+
+Before 1.5.0:
+
+1. Keep the override file outside any cascade layer, and load it **after** the
+   library stylesheet.
+2. Write the override under `[data-theme="light"]` / `[data-theme="dark"]`, not
+   bare `:root`, whenever the app sets `data-theme`.
+
+From 1.5.0:
+
+1. Keep the override file outside any layer, where its load order no longer
+   matters, or put it in `@layer app`, declared after `furo`.
+2. Write a token that differs per theme under `[data-theme="light"]` /
+   `[data-theme="dark"]`. Put a token that holds in both themes, such as a
+   size, on `:root`.
 
 ## The published prefixes
 
@@ -81,6 +99,21 @@ easing tokens sit beside it:
 | `--transition-easing-emphasized` | A large surface entering or leaving |
 
 Neither is redefined for the dark theme — a curve carries no colour.
+
+## Control size tokens
+
+From 1.5.0 the library publishes three size tokens, so an app can raise a row
+or a close button to a larger touch target without touching component CSS:
+
+| Token | Default | What reads it |
+| --- | --- | --- |
+| `--size-option-height` | `calc(var(--size-input-height) - 0.5rem)`, 24px | The minimum height of a `FuroSelect` option row and a `FuroDropdownMenu` row |
+| `--size-close-button-small` | `1.25rem`, 20px | The `FuroToast` close button |
+| `--size-close-button-medium` | `1.75rem`, 28px | The `FuroDialog` and `FuroDrawer` close buttons |
+
+Before 1.5.0 these tokens do not exist, and the components fix the same values
+in their own CSS, so declaring the tokens there changes nothing. No token was
+renamed or removed between 1.4.0 and 1.5.0.
 
 ## Rules
 
