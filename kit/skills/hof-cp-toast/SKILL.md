@@ -60,7 +60,7 @@ written.
 | `position` | `'top-left' \| 'top-center' \| 'top-right' \| 'bottom-left' \| 'bottom-center' \| 'bottom-right'` | `'bottom-right'` | Viewport placement. |
 | `durationInMilliseconds` | `number` | `4000` | Default auto-dismiss in ms. Per-toast `durationInMilliseconds` overrides it. |
 | `swipeDirection` | `'right' \| 'left' \| 'up' \| 'down'` | derived from `position` | Swipe-to-dismiss direction. When unset, it follows the position. |
-| `label` | `string` | `'Notifications'` | Accessible label for the region. |
+| `label` | `string` | `'Notifications'` | Prefixes the screen reader announcement of each toast. From furo-vue 1.5.0 it also names the toast region. See [Naming the toast region](#naming-the-toast-region). |
 | `hotkey` | `Array<string> \| null` | `null` | Keyboard shortcut to focus the viewport (e.g. `['F8']`). |
 | `maxVisible` | `number` | `3` | Caps how many toasts render at once (the most recent). The rest stay queued. |
 
@@ -100,6 +100,31 @@ event wiring from the consumer.
 `FuroToaster` declares no slots — customize toast content per call through
 the fields passed to `toast.show({ ... })` (`title`, `description`, `type`,
 `actions`, …), not through slot markup.
+
+## Naming the toast region
+
+| `label` | Before 1.5.0 | From 1.5.0 |
+| --- | --- | --- |
+| Announcement of each toast | Prefixed with `label` | Prefixed with `label` |
+| Accessible name of the region, `label` set (`parcel.label` or `toast.configure({ label })`) | The fixed English name `Notifications (F8)`, whatever `label` holds | `label`, with any `{hotkey}` placeholder filled |
+| Accessible name of the region, `label` unset (`FuroToast` or `FuroToaster`) | `Notifications (F8)` | `Notifications (F8)` |
+
+- In every `Notifications (F8)` above, a `hotkey` the app sets takes the place
+  of `F8`.
+- From 1.5.0, pass `label` in the app's own language, through
+  `parcel.label` on `FuroToast` or `toast.configure({ label })` for
+  `FuroToaster`.
+- A set `label` replaces the whole default name, hotkey hint included. To keep
+  the hint, write the `{hotkey}` placeholder into the label, as in
+  `label: '通知 ({hotkey})'`; the region fills it with the shortcut, `F8`
+  unless `hotkey` says otherwise.
+- On 1.4.0, no `parcel` key renames the region, so a localized app still
+  exposes the English `Notifications (F8)`. Raising furo-vue to 1.5.0 is the
+  fix.
+
+From 1.5.0 the built-in close button takes its size from
+`--size-close-button-small`; before 1.5.0 it is a fixed `1.25rem`. Override the
+token as `/hof-lib-tokens` describes to reach a larger touch target.
 
 ## A consumer `id` does not land
 

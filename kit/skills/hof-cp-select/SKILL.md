@@ -42,7 +42,7 @@ this skill was written.
 | --- | --- | --- | --- |
 | `parcel` | `object \| null` | `null` | Root behavior and Furo fields. |
 | `triggerParcel` | `object \| null` | `null` | Extra attributes applied to the trigger part. |
-| `portalParcel` | `object \| null` | `null` | Extra attributes applied to the portal part. |
+| `portalParcel` | `object \| null` | `null` | Attributes of the portal the option list renders in, such as `to` or `disabled`. From furo-vue 1.5.0 only; 1.4.0 accepts the prop and ignores it. See [Where the option list renders](#where-the-option-list-renders). |
 | `contentParcel` | `object \| null` | `null` | Extra attributes applied to the content part (side-offset defaults to 4). |
 
 ### FuroAutocompleteField
@@ -165,6 +165,34 @@ receives only `triggerParcel`. Put `id` and `aria-*` there:
   }"
 />
 ```
+
+## Where the option list renders
+
+| | Before 1.5.0 | From 1.5.0 |
+| --- | --- | --- |
+| Option list | Renders inside the select, next to the trigger in the DOM | Renders in a portal at `body` |
+| `portalParcel` | Accepted and ignored | Bound to the portal: `to` moves it, `disabled: true` keeps the list inline |
+| Inside `FuroDialog` or another transformed or clipping ancestor | The ancestor becomes the list's containing block, so the list opens away from its trigger and the ancestor's overflow clips it | The list opens beside its trigger, outside the ancestor |
+| Option row height | Fixed at `calc(var(--size-input-height) - 0.5rem)` | Reads `--size-option-height`, which defaults to the same value |
+
+From 1.5.0, send the list somewhere other than `body` through `portalParcel`:
+
+```vue
+<FuroSelect
+  v-model:value="form.status"
+  :parcel="{ options: context.statusOptions }"
+  :portal-parcel="{ to: '#overlay-root' }"
+/>
+```
+
+- A rule that styles the list through an ancestor of the select, such as
+  `.order-form .unit-select-content`, stops matching from 1.5.0, because the
+  list no longer sits inside that ancestor. Style it through
+  `contentParcel.class` or the `.unit-select-content` class alone.
+- On 1.4.0, a select inside `FuroDialog` shows the clipped, misplaced list,
+  and `portalParcel` cannot fix it. Raising furo-vue to 1.5.0 is the fix.
+- To raise every option row to a larger touch target from 1.5.0, override
+  `--size-option-height` as `/hof-lib-tokens` describes, never the select's CSS.
 
 ## Usage
 

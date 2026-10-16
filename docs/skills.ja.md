@@ -19,7 +19,7 @@
 
 ### コンポーネント
 
-コンポーネントのスキルと `hof-lib-tokens` は `@openreachtech/furo-vue` `1.4.0` を前提にしています。
+コンポーネントのスキルと `hof-lib-tokens` は `@openreachtech/furo-vue` `1.4.0` と `1.5.0` を前提にしています。2 つのバージョンで挙動が異なる箇所は、`hof-cp-dialog`・`hof-cp-dropdown-menu`・`hof-cp-select`・`hof-cp-toast`・`hof-cp-toggle-group`・`hof-lib-tokens` が *Before 1.5.0* / *From 1.5.0* の注記で示します。
 
 | スキル | 概要 |
 | :-- | :-- |
