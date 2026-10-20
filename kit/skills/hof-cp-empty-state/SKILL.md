@@ -85,7 +85,9 @@ this skill was written.
 
 ## Appearance
 
-`FuroErrorState`'s glyph reads `--color-destructive`.
+`FuroErrorState`'s glyph reads `--color-destructive-text` from furo-vue 1.6.0
+and `--color-destructive` before it. To recolor it, override the token as
+`/hof-lib-tokens` describes.
 
 ## Usage
 

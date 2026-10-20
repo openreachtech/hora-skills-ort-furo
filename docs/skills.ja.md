@@ -19,7 +19,7 @@
 
 ### コンポーネント
 
-コンポーネントのスキルと `hof-lib-tokens` は `@openreachtech/furo-vue` `1.4.0` と `1.5.0` を前提にしています。2 つのバージョンで挙動が異なる箇所は、`hof-cp-dialog`・`hof-cp-dropdown-menu`・`hof-cp-select`・`hof-cp-toast`・`hof-cp-toggle-group`・`hof-lib-tokens` が *Before 1.5.0* / *From 1.5.0* の注記で示します。
+コンポーネントのスキルと `hof-lib-tokens` は `@openreachtech/furo-vue` `1.4.0`・`1.5.0`・`1.6.0` を前提にしています。`1.4.0` と `1.5.0` で挙動が異なる箇所は、`hof-cp-dialog`・`hof-cp-dropdown-menu`・`hof-cp-select`・`hof-cp-toast`・`hof-cp-toggle-group`・`hof-lib-tokens` が *Before 1.5.0* / *From 1.5.0* の注記で示します。`1.6.0` で変わったテキストの色は、`hof-lib-tokens`・`hof-cp-empty-state`・`hof-cp-table` が、移動前の色と合わせて示します。
 
 | スキル | 概要 |
 | :-- | :-- |
@@ -60,7 +60,7 @@
 | `hof-layout-margin` | Flex / Grid の余白はコンテナの責務で、レイアウトアイテムは margin を持ちません。均等な余白は `gap`、例外的な余白は親から子セレクタで指定します。 |
 | `hof-selector-props-sort` | CSS プロパティの並び順(Outer-to-Inner Order)。プロパティが何に作用するかで分類し、外側から内側へ並べ、グループ内はアルファベット順にします。 |
 | `hof-animation` | UI アニメーションの規約。そもそも動かすべきか、`--transition-timing-*` トークンからのイージング選択、入場・ポップオーバー・ツールチップ・ブラーの手法。 |
-| `hof-lib-tokens` | 消費側アプリからコンポーネントライブラリ自身のセマンティックトークンを上書きする規約。公開されているプレフィックス、2 層のボーダー、intent のロール、イージングトークン。 |
+| `hof-lib-tokens` | 消費側アプリからコンポーネントライブラリ自身のセマンティックトークンを上書きする規約。公開されているプレフィックス、2 層のボーダー、intent のロール、テキストのロール、イージングトークン。 |
 
 ### API クライアント
 
