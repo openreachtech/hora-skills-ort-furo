@@ -124,8 +124,9 @@ inspecting the component source shows each entry carries at least `field` and
 
 ## Appearance
 
-- The error row reads `--color-destructive`. The column-resize bar reads
-  `--color-border`, the container border tier.
+- The error row reads `--color-destructive-text` from furo-vue 1.6.0 and
+  `--color-destructive` before it. The column-resize bar reads `--color-border`,
+  the container border tier.
 - `FuroTableVirtual` takes `{ itemSize, height, overscan?, endThreshold? }`.
   `endThreshold` (default `8`) is how close to the loaded end a downward scroll
   must get before more rows are requested.
