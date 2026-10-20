@@ -19,7 +19,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 
 ### Components
 
-The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `1.4.0` and `1.5.0`. `hof-cp-dialog`, `hof-cp-dropdown-menu`, `hof-cp-select`, `hof-cp-toast`, `hof-cp-toggle-group` and `hof-lib-tokens` mark where the two versions behave differently with a *Before 1.5.0* / *From 1.5.0* note.
+The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `1.4.0`, `1.5.0` and `1.6.0`. `hof-cp-dialog`, `hof-cp-dropdown-menu`, `hof-cp-select`, `hof-cp-toast`, `hof-cp-toggle-group` and `hof-lib-tokens` mark where `1.4.0` and `1.5.0` behave differently with a *Before 1.5.0* / *From 1.5.0* note. `hof-lib-tokens`, `hof-cp-empty-state` and `hof-cp-table` name the text colours that moved in `1.6.0`, and the colour each read before.
 
 | Skill | Summary |
 | :-- | :-- |
@@ -60,7 +60,7 @@ The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `
 | `hof-layout-margin` | Spacing in Flex/Grid is the container's responsibility; layout items carry no margin. Even spacing uses `gap`, exceptions are owned from the parent. |
 | `hof-selector-props-sort` | Property ordering (Outer-to-Inner Order) — categorize by what the property applies to and order outer to inner, alphabetically within a group. |
 | `hof-animation` | UI animation conventions — whether and why an element animates, easing from the `--transition-timing-*` tokens, and the entry/popover/tooltip/blur techniques that keep motion responsive. |
-| `hof-lib-tokens` | Re-theming the component library's own semantic tokens from a consumer app: the published prefixes, the two border tiers, the intent roles and the easing tokens. |
+| `hof-lib-tokens` | Re-theming the component library's own semantic tokens from a consumer app: the published prefixes, the two border tiers, the intent roles, the text roles and the easing tokens. |
 
 ### API clients
 
