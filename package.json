@@ -1,6 +1,6 @@
 {
   "name": "@openreachtech/hora-skills-ort-furo",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Distributes the furo frontend skills used to develop with Hora Kit.",
   "type": "module",
   "files": [
@@ -57,7 +57,8 @@
     "brace-expansion@1": "^1.1.21",
     "brace-expansion@5": "^5.0.12",
     "flatted": "^3.4.4",
-    "js-yaml": "^4.3.2"
+    "js-yaml": "^4.3.2",
+    "test-exclude": "^8.0.0"
   },
   "allowScripts": {
     "@parcel/watcher": false,

@@ -1,6 +1,6 @@
 ---
 name: hof-lib-tokens
-description: Use when re-theming or overriding the component library's own semantic tokens from a consumer app, such as "change the library's primary colour", "make the field borders lighter", "our brand red", "retime the library's transitions". Covers where an override sits in the cascade, the published token prefixes, the two border tiers, the intent roles, the easing tokens and the control size tokens.
+description: Use when re-theming or overriding the component library's own semantic tokens from a consumer app, such as "change the library's primary colour", "make the field borders lighter", "our brand red", "retime the library's transitions". Covers where an override sits in the cascade, the published token prefixes, the two border tiers, the intent roles, the text roles, the easing tokens and the control size tokens.
 ---
 
 # The component library's semantic tokens
@@ -76,17 +76,59 @@ Each intent family ships these roles:
 
 | Role | Read as |
 | --- | --- |
-| `--color-{destructive,error,info,success,warning}` | The fill, the border of an invalid control, and the family read as text: a validation message, a required marker, an error glyph, a table's error row |
+| `--color-{destructive,error,info,success,warning}` | The fill and the border of an invalid control. Before 1.6.0 it was also the family read as text |
+| `--color-{destructive,info,warning}-text` | From 1.6.0, the family read as text on the page. See [The text roles](#the-text-roles) |
 | `--color-…-foreground` | A label sitting **on** that fill |
 | `--color-{error,info,success,warning}-subtle` | A tinted surface, such as a badge |
 | `--color-…-subtle-foreground` | Text sitting on that tinted surface |
 
-The library has no separate role for a family read as text, so the fill
-colours text too. `--color-destructive` resolves to `--palette-rose-500`,
-3.67:1 on white and below the 4.5:1 floor for text. A project that needs
-AA-passing danger text re-points `--color-destructive` to a darker step, such
-as `--palette-rose-700` (6.29:1), and accepts that the fill and the invalid
-border darken with it.
+`--color-error` and `--color-success` ship no `-text` sibling, because the
+library's contrast check finds no `color:` declaration that reads either. Text
+set through a `--furo-*` knob sits outside that check, so an app that paints
+either as text checks the contrast itself.
+
+## The text roles
+
+Text on the page has to clear 4.5:1 against `--color-background`. Before 1.6.0
+several roles the library paints as text fell short in the light theme, and the
+fill of a family doubled as its text. From 1.6.0 each role below clears 4.5:1 in
+both themes, except the glyph role, which is held to 3:1.
+
+| Role | Before 1.6.0 | From 1.6.0, light | From 1.6.0, dark | Read by, from 1.6.0 |
+| --- | --- | --- | --- | --- |
+| `--color-destructive-text` | Absent. Text read `--color-destructive`, `--palette-rose-500`, 3.67:1 | `--palette-rose-600`, 4.70:1 | `--palette-rose-500`, 5.14:1 | The `FuroControlBlock` message and required mark, `FuroErrorState`, the destructive `FuroDropdownMenu` item, the `FuroTable` error row |
+| `--color-warning-text` | Absent. Text read `--color-warning`, `--palette-orange-500`, 2.80:1 | `--palette-orange-700`, 5.18:1 | `--palette-orange-400`, 8.34:1 | The unresolved-name glyph of `FuroIcon` |
+| `--color-info-text` | Absent. Text read `--color-info`, `--palette-blue-500`, 3.68:1 | `--palette-blue-600`, 5.17:1 | `--palette-blue-400`, 7.43:1 | The `FuroAttachment` spinner |
+| `--color-link` | `--palette-blue-500`, 3.68:1 | `--palette-blue-600`, 5.17:1 | `--palette-blue-500`, 5.13:1, unchanged | The `FuroButton` link variant, links inside `FuroEditor` content |
+| `--color-foreground-glyph` | Absent. Glyphs read `--color-foreground-tertiary` | `--palette-gray-600`, 3.09:1 | `--palette-gray-300`, 12.84:1 | The `FuroSidebar` caret, the `FuroSearchField` icon, the `FuroBreadcrumb` separator and overflow marker |
+| `--color-foreground-secondary` | `--palette-gray-700`, 5.27:1. The `FuroSidebar` group label and section button read `--color-foreground-tertiary` instead, at 3.09:1 | Unchanged value | Unchanged value | Also the `FuroSidebar` group label and section button |
+
+- **The fill roles keep their values.** `--color-destructive`, `--color-warning`
+  and `--color-info` still resolve to the same palette steps, because darkening
+  a fill would push its `-foreground` label under 4.5:1. `--palette-gray-950` on
+  `--palette-rose-600` is 4.02:1.
+- **`--color-foreground-tertiary` did not move.** It stays `--palette-gray-600`
+  in light and `--palette-gray-300` in dark. At 3.09:1 in light it is below the
+  text floor, so no library component reads it from 1.6.0. Set text with
+  `--color-foreground-secondary`, never with the tertiary or the glyph role.
+- **`--color-foreground-glyph` is for an icon, a caret or a separator only.**
+  Its 3:1 floor is the one WCAG sets for a graphic, and the library cannot tell
+  a glyph from text, so only review keeps text off it.
+
+No colour role was renamed or removed between 1.4.0 and 1.6.0, and every value
+in the table was the same in 1.4.0 and 1.5.0. Re-pointing a family depends on
+the version:
+
+| | Before 1.6.0 | From 1.6.0 |
+| --- | --- | --- |
+| AA-passing danger text | Re-point `--color-destructive` to a darker step, such as `--palette-rose-700` (6.29:1), and accept that the fill and the invalid border darken with it | No override needed, because `--color-destructive-text` already clears 4.5:1 |
+| Recolor the danger family to a brand red | Re-point `--color-destructive` | Re-point `--color-destructive` **and** `--color-destructive-text`, or messages keep the library's rose |
+| Same for warning and info | Re-point `--color-warning` or `--color-info` | Re-point the fill and its `-text` sibling together |
+| Link colour in light | `--palette-blue-500`, 3.68:1 | `--palette-blue-600`, 5.17:1 |
+
+A `-text` override differs per theme, so write it under `[data-theme="light"]`
+and `[data-theme="dark"]` and check it clears 4.5:1 on `--color-background` in
+each.
 
 ## Easing
 
@@ -122,7 +164,9 @@ renamed or removed between 1.4.0 and 1.5.0.
   stylesheet outside that layer already wins where it needs to — reaching into
   the component is never the fix.
 - Re-point an intent family's fill and its `-foreground` companion together,
-  and check the label still clears 4.5:1 on the new fill.
+  and check the label still clears 4.5:1 on the new fill. From 1.6.0, also
+  re-point the `-text` sibling of the destructive, warning and info families,
+  and check it clears 4.5:1 on `--color-background`.
 - A colour a component needs but the token layer does not publish is a library
   gap worth reporting, not a hex value to inline in the app.
 - Do not invent a token name in the library's namespace. A new prefix is a change to
