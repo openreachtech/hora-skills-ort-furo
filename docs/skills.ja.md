@@ -74,6 +74,7 @@
 | スキル | 概要 |
 | :-- | :-- |
 | `hof-cookie-authentication` | Furo/Nuxt アプリの、パスワードサインインとリフレッシュ Cookie による認証。メモリ上のセッション層(トークンストア、再取得、401/205 の自己修復、ルートゲートウェイ、サインアウト)、認証用 GraphQL クライアント、リフレッシュ Cookie をファーストパーティに保つための same-origin 配信。 |
+| `hof-oidc-sign-in` | Furo/Nuxt アプリで、外部の OpenID Connect IdP を通してサインインする。IdP へのページ全体の遷移、`code` と `state` をバックエンドへ渡すコールバックページ、往復の間も保つ戻り先パス。サインイン後のセッションは `hof-cookie-authentication` が受け持つ。 |
 
 ### エラーハンドリング
 
