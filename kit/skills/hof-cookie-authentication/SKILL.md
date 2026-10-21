@@ -1,9 +1,9 @@
 ---
 name: hof-cookie-authentication
-description: "Password sign-in with an in-memory access token and an HttpOnly refresh cookie in a Furo/Nuxt app: the session layer, the auth GraphQL clients, and same-origin serving. Use when adding cookie auth to a Furo app. Boundary: a session cookie the backend sets after an OIDC or SSO sign-in is not this pattern; the base GraphQL client classes stay in the boilerplate; the backend token schema and resolvers are the backend cookie-authentication convention."
+description: "Password sign-in with an in-memory access token and an HttpOnly refresh cookie in a Furo/Nuxt app: the session layer, the auth GraphQL clients, and same-origin serving. Use when adding cookie auth to a Furo app. Boundary: an OIDC or SSO sign-in ends in this session through the frontend OIDC sign-in convention; the base GraphQL client classes stay in the boilerplate; the backend token schema and resolvers are the backend cookie-authentication convention."
 metadata:
   author: OpenReachTech
-  version: "2026.08.18"
+  version: "2026.10.21"
 ---
 
 # Cookie Authentication (Frontend)
@@ -12,7 +12,7 @@ Use this skill when adding cookie-based authentication to a Furo/Nuxt app — ho
 
 The app keeps a short-lived **access token in a Nuxt `useState` store** (never `localStorage`) and sends it as a header on every request; the **refresh token is an HttpOnly cookie** the browser sends on its own. When the access token expires the app renews it from the cookie and retries the request once; sign-out revokes the cookie server-side. Every decision lives in a plain, injectable class ([[hoc-jest]]-tested); the composable and middleware are thin Nuxt-context bridges. The refresh cookie is first-party only when the app is served **same-origin** with the API.
 
-The pattern covers password sign-in, where the app holds an access token. A session cookie the backend sets after an OIDC or SSO sign-in leaves the app no token to hold, so this skill does not apply to it.
+The pattern starts at password sign-in, where the app holds an access token. An OIDC or SSO sign-in reaches the same session: its callback returns the same access token and sets the same refresh cookie, and [[hof-oidc-sign-in]] covers the trip to the provider. A backend that keeps a session cookie and returns no token at all leaves the app nothing to hold, so this skill does not apply to it.
 
 This is application code built on top of the boilerplate's generic `BaseAppGraphql*` classes ([[hof-graphql]]) — it is not in the boilerplate itself. The boilerplate's base payload also looks for a token in `localStorage`; this skill writes nothing there, so the token reaches each request only through the session store.
 

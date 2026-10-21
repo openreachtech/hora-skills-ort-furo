@@ -74,6 +74,7 @@ The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `
 | Skill | Summary |
 | :-- | :-- |
 | `hof-cookie-authentication` | Password sign-in with a refresh cookie for a Furo/Nuxt app — the in-memory session layer (token store, renew, 401/205 self-heal, route gateway, sign-out), the auth GraphQL clients, and serving same-origin so the refresh cookie stays first-party. |
+| `hof-oidc-sign-in` | Sign in through an external OpenID Connect identity provider in a Furo/Nuxt app: the full-page redirect to the provider, the callback page that hands `code` and `state` to the backend, and the return path kept across the trip. The session afterwards is `hof-cookie-authentication`'s. |
 
 ### Error handling
 
