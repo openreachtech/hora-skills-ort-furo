@@ -59,6 +59,7 @@
     "flatted": "^3.4.4",
     "glob@>=9": "^14.0.2",
     "js-yaml": "^4.3.2",
+    "minimatch@>=7": "^11.0.1",
     "test-exclude": "^8.0.0"
   },
   "allowScripts": {
