@@ -26,7 +26,7 @@ this skill was written.
 
 ## When NOT to use
 
-- The region is still loading (request in flight), not empty or failed → use `app-avatar` (`FuroSkeleton`) instead.
+- The region is still loading (request in flight), not empty or failed → use `FuroSkeleton` instead (no skill covers it yet).
 - A transient, auto-dismissing notification about success/failure, not a persistent in-region placeholder → use `hof-cp-toast` instead.
 - An error severe enough to block the whole flow and require an explicit user decision (e.g. confirm/cancel) → use `hof-cp-dialog` instead of an inline `FuroErrorState`.
 - Tabular data with zero rows inside a `FuroTable` — check whether `hof-cp-table` already has a built-in empty-row treatment before adding a separate `FuroEmptyState` on top.
