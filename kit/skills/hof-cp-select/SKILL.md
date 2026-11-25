@@ -99,7 +99,7 @@ this skill was written.
 | --- | --- | --- |
 | `change-value` | `SelectEmitPayload` | Fired on selection. |
 | `commit-value` | `SelectEmitPayload` | Same gesture as `change-value`; selection is the commit point. |
-| `update:value` | `string \| number \| object \| null` | Primary selected value; first selected value for multi-select. |
+| `update:value` | `string \| number \| object \| Array<string \| number \| object> \| null` | Selected value; for multi-select, the array of every selected value (`[]` when none is selected). |
 
 ### FuroAutocompleteField
 
