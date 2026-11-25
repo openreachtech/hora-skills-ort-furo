@@ -54,6 +54,42 @@ const LITERAL_EMIT_PATTERN = /\.emit\(\s*\n?\s*'(?<name>[^']+)'/gu
 
 const EMITS_OPTION_PATTERN = /emits\s*:\s*\[(?<body>[\s\S]*?)\]/u
 
+/*
+ * `emits: Object.values(SomethingContext.EMIT_EVENT_NAME)` registers every declared event at once.
+ */
+const EMITS_ALL_DECLARED_PATTERN = /emits\s*:\s*Object\.values\(\s*(?<className>[A-Za-z0-9_]+)\.EMIT_EVENT_NAME\s*\)/u
+
+/**
+ * Find the declared events a component leaves out of its `emits` registration.
+ *
+ * @param {{
+ *   componentSource: string
+ *   contextClassName: string
+ *   declared: Array<{ key: string, name: string }>
+ * }} params - Parameters.
+ * @returns {Array<{ key: string, name: string }>} Unregistered events.
+ */
+function findUnregisteredEvents ({
+  componentSource,
+  contextClassName,
+  declared,
+}) {
+  const registeredClassName = componentSource.match(EMITS_ALL_DECLARED_PATTERN)
+    ?.groups
+    ?.className
+  if (registeredClassName === contextClassName) {
+    return []
+  }
+
+  const registeredBody = componentSource.match(EMITS_OPTION_PATTERN)
+    ?.groups
+    ?.body
+    ?? ''
+
+  return declared
+    .filter(it => !registeredBody.includes(`.${it.key}`) && !registeredBody.includes(`'${it.name}'`))
+}
+
 /**
  * Collect files with one suffix, recursively.
  *
@@ -140,13 +176,6 @@ const checked = contextPaths
     ]
 
     const componentPath = resolveComponentPath({ contextPath })
-    const registeredBody = componentPath
-      ? fs.readFileSync(componentPath, 'utf8')
-        .match(EMITS_OPTION_PATTERN)
-        ?.groups
-        ?.body
-        ?? ''
-      : ''
 
     return {
       contextPath,
@@ -155,8 +184,11 @@ const checked = contextPaths
         .filter(it => !emittedKeys.has(it.key)),
       literalNames,
       unregistered: componentPath
-        ? declared
-          .filter(it => !registeredBody.includes(`.${it.key}`) && !registeredBody.includes(`'${it.name}'`))
+        ? findUnregisteredEvents({
+          componentSource: fs.readFileSync(componentPath, 'utf8'),
+          contextClassName: path.basename(contextPath, '.js'),
+          declared,
+        })
         : [],
     }
   })
