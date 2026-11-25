@@ -50,4 +50,4 @@ For types where a unit is **syntactically required**, such as `<time>` or `<angl
 ```
 
 - Reason: this is not a matter of taste but a CSS syntax rule. A unitless zero `0` is treated as a valid value only for `<length>` (and the length side of length-percentage). A `<time>` `0` on its own is **invalid** and is not interpreted as a value unless written as `0s`; an `<angle>` likewise needs `0deg`. Extending "zero is unitless" mechanically to every type produces broken CSS such as `transition-delay: 0`.
-- The delays and durations of transition / animation fall exactly here. When you want to set a value derived from `--motion-*` to 0, write `0s`.
+- The delays and durations of transition / animation fall exactly here. When you want to set a value derived from `--transition-*` to 0, write `0s`.
