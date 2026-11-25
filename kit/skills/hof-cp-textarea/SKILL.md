@@ -83,7 +83,12 @@ With a label/hint/error wrapper:
 
 ```vue
 <template>
-  <FuroControlBlock :parcel="{ label: 'Description', error: context.descriptionError }">
+  <FuroControlBlock
+    :parcel="{
+      label: 'Description',
+      errorMessages: context.descriptionErrorMessages,
+    }"
+  >
     <FuroTextarea
       v-model:value="form.description"
       :parcel="{ invalid: context.hasDescriptionError() }"

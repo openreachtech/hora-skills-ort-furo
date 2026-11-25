@@ -214,7 +214,12 @@ With a label/hint/error wrapper:
 
 ```vue
 <template>
-  <FuroControlBlock :parcel="{ label: 'Due date', error: context.dueDateError }">
+  <FuroControlBlock
+    :parcel="{
+      label: 'Due date',
+      errorMessages: context.dueDateErrorMessages,
+    }"
+  >
     <FuroDatePicker
       v-model:value="form.dueDate"
       :parcel="{ invalid: context.hasDueDateError() }"
