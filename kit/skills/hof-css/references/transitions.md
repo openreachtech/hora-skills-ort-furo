@@ -6,7 +6,7 @@ When a `transform` transition causes a visible 1px sub-pixel jump, add `will-cha
 
 ```css
 .unit-card > .image {
-  transition: transform 0.2s var(--transition-timing-ease-out);
+  transition: transform 0.2s var(--transition-easing-out);
   will-change: transform;
 }
 
