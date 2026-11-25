@@ -1,6 +1,6 @@
 ---
 name: hof-cp-control-block
-description: Use when wrapping a form field with a label, required marker, or error message in a repo that consumes @openreachtech/furo-vue — "add a label to this field", "show a validation error under the input", "required field marker", "horizontal form layout". Routes to FuroControlBlock.
+description: Use when wrapping a form field with a label, required marker, or error message in a repo that consumes @openreachtech/furo-vue (for example "add a label to this field", "show a validation error under the input", "required field marker", "horizontal form layout"). Routes to FuroControlBlock.
 ---
 
 # FuroControlBlock
