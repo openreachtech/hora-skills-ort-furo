@@ -37,6 +37,6 @@ All colors, sizes, typography, transitions, and gradients are defined as CSS var
 - **Sizes**: `--size-thinnest` (1px), `--size-radius-rounded`, `--size-header-height`, `--size-nav-width`, `--size-screen-height`, …
 - **Typography**: `--font-family-body`, `--font-size-*` (`title-large` → `tiny`) paired with matching `--size-line-height-*`.
 - **Gradients**: `--gradient-membership-silver|gold|platinum|diamond`.
-- **Transitions**: `--transition-timing-ease-in|out|in-out`.
+- **Transitions**: `--transition-timer` (0.2s) and `--transition-timer-spin` (0.75s) from `@openreachtech/furo-vue`, and `--transition-easing-in|out|in-out`, which the project declares in `assets/css/variables.css` (values in `hof-animation`).
 
 When a component needs a new shared value, add a token to `assets/css/variables.css` rather than inlining it.

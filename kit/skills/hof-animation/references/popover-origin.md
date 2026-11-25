@@ -21,8 +21,8 @@ Set `transform-origin` to the corner nearest the trigger (or bind it to the orig
   transform: scale(0.96);
   opacity: 0;
   transition:
-    transform 0.16s var(--transition-timing-ease-out),
-    opacity 0.16s var(--transition-timing-ease-out);
+    transform 0.16s var(--transition-easing-out),
+    opacity 0.16s var(--transition-easing-out);
 }
 
 .unit-menu > .popper[open] > .content {
