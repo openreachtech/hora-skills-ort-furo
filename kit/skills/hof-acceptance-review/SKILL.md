@@ -72,9 +72,9 @@ Output an *audit capability* note. It opens the report and bounds every claim in
 The review needs facts only the project has: what the core flows are, which roles exist, credentials to sign
 in with, how to start the app, and which exposed operations are deliberately absent from the UI.
 
-Read `<project-root>/ai/contexts/acceptance-context.md`. If it is missing, **create it before continuing**,
-using the schema in `references/project-declaration.md`, filling everything discoverable from the codebase
-and marking the rest `TBD`. Never infer a core flow and then audit against the guess.
+Read `<project-root>/ai/contexts/acceptance-context.md`. If it is missing, **create it before continuing**:
+copy `templates/acceptance-context.md` there, follow the rules in `references/project-declaration.md`, fill
+everything discoverable from the codebase and mark the rest `TBD`. Never infer a core flow and then audit against the guess.
 
 > **Gate 1** — a run command and per-role credentials are present, or Phase 4 is recorded as not run. A
 > review that silently skips the live pass is the failure mode this whole skill exists to prevent.
