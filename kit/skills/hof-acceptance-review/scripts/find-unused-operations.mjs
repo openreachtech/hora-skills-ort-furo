@@ -142,12 +142,12 @@ function readConsumerSource () {
 /**
  * Read the operations the project declares as deliberately absent from the UI.
  *
- * @returns {Array<{ name: string, reason: string }>} Declared exclusions.
+ * @returns {Array<{ name: string, reason: string }> | null} Declared exclusions, or null without a declaration.
  */
 function readExclusions () {
   const declarationPath = path.join(PROJECT_PATH, DECLARATION_PATH)
   if (!fs.existsSync(declarationPath)) {
-    return []
+    return null
   }
 
   return [
@@ -189,7 +189,8 @@ if (entryClassNames.length === 0) {
   nodeProcess.exitCode = 2
 } else {
   const consumerSource = readConsumerSource()
-  const exclusions = readExclusions()
+  const declaredExclusions = readExclusions()
+  const exclusions = declaredExclusions ?? []
   const excludedNames = new Set(
     exclusions.map(it => it.name)
   )
@@ -213,10 +214,19 @@ if (entryClassNames.length === 0) {
   ]
     .join('\n')
 
+  const missingDeclarationNotice = declaredExclusions === null
+    ? `DECLARATION MISSING: ${DECLARATION_PATH} does not exist, so no exclusion was read. Create it from templates/acceptance-context.md.`
+    : ''
+
+  const excludedCount = declaredExclusions === null
+    ? 'NOT READ'
+    : excludedNames.size - stale.length
+
   console.log(
     [
+      missingDeclarationNotice,
       report,
-      `UNREACHED OPERATIONS: ${unexpected.length}   EXCLUDED: ${excludedNames.size - stale.length}   STALE: ${stale.length}   OPERATIONS: ${entryClassNames.length}`,
+      `UNREACHED OPERATIONS: ${unexpected.length}   EXCLUDED: ${excludedCount}   STALE: ${stale.length}   OPERATIONS: ${entryClassNames.length}`,
     ]
       .filter(it => it !== '')
       .join('\n\n')
