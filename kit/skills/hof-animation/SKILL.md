@@ -1,6 +1,6 @@
 ---
 name: hof-animation
-description: UI animation conventions for a Furo/Nuxt app — deciding whether and why an element animates, picking easing from the --transition-timing-* tokens, and the entry/popover/tooltip/blur techniques that keep motion feeling responsive. Use when adding transitions, animating component entry/exit, or polishing popovers, tooltips, and state changes.
+description: UI animation conventions for a Furo/Nuxt app, deciding whether and why an element animates, picking easing from the --transition-easing-* tokens, and the entry/popover/tooltip/blur techniques that keep motion feeling responsive. Use when adding transitions, animating component entry/exit, or polishing popovers, tooltips, and state changes.
 metadata:
   author: OpenReachTech
   version: "2026.07.24"
@@ -20,7 +20,7 @@ compositor does the work.
 | Topic | Description | Reference |
 | --- | --- | --- |
 | Purpose | Every animation must answer "why does this animate?" — the valid purposes, and when to skip motion entirely | [purpose](references/purpose.md) |
-| Easing | Choosing between the `--transition-timing-ease-in|out|in-out` tokens by whether the element enters, exits, moves, or changes color | [easing](references/easing.md) |
+| Easing | Choosing between the `--transition-easing-in|out|in-out` tokens by whether the element enters, exits, moves, or changes color | [easing](references/easing.md) |
 
 ## Techniques
 
