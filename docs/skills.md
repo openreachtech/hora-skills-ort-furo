@@ -32,7 +32,7 @@ The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `
 | `hof-cp-date-time` | A date and/or time selection control. Routes to `FuroDatePicker`, `FuroTimeField`, `FuroDateTimePicker`, and shows a timestamp in the viewer's time zone. |
 | `hof-cp-editor` | A rich-text editing area — WYSIWYG field, comment editor, chat composer with mentions. Routes to `FuroEditor`. |
 | `hof-cp-editable-field` | An inline click-to-edit value display. Routes to `FuroEditableField`. |
-| `hof-cp-control-block` | Wraps a form field with a label, hint, required marker or validation error message. Routes to `FuroControlBlock`. |
+| `hof-cp-control-block` | Wraps a form field with a label, required marker or validation error message. Routes to `FuroControlBlock`. |
 | `hof-cp-table` | Tabular data with row selection and sorting, plus its page-navigation companion. Routes to `FuroTable`, `FuroPagination`. |
 | `hof-cp-tabs` | Tabbed regions and segmented-control navigation. Routes to `FuroTabs`. |
 | `hof-cp-stepper` | A multi-step flow indicator — wizard progress, multi-step form, checkout steps. Routes to `FuroStepper`. |

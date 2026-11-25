@@ -32,7 +32,7 @@
 | `hof-cp-date-time` | 日付・時刻の選択コントロール。`FuroDatePicker`・`FuroTimeField`・`FuroDateTimePicker` へ振り分け、日時を閲覧者のタイムゾーンで表示します。 |
 | `hof-cp-editor` | リッチテキストの編集領域(WYSIWYG、書式付きコメント、メンション付きチャット入力)。`FuroEditor` へ振り分けます。 |
 | `hof-cp-editable-field` | クリックしてその場で編集する値の表示。`FuroEditableField` へ振り分けます。 |
-| `hof-cp-control-block` | フォームフィールドをラベル・ヒント・必須マーク・エラーメッセージで包みます。`FuroControlBlock` へ振り分けます。 |
+| `hof-cp-control-block` | フォームフィールドをラベル・必須マーク・エラーメッセージで包みます。`FuroControlBlock` へ振り分けます。 |
 | `hof-cp-table` | 行選択・ソートを伴う表形式データと、そのページ送り。`FuroTable`・`FuroPagination` へ振り分けます。 |
 | `hof-cp-tabs` | タブで切り替える領域とセグメンテッドコントロール的なナビゲーション。`FuroTabs` へ振り分けます。 |
 | `hof-cp-stepper` | 複数ステップのフロー表示(ウィザードの進捗、多段フォーム、購入ステップ)。`FuroStepper` へ振り分けます。 |
