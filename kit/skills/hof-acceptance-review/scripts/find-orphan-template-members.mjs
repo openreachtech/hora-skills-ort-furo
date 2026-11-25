@@ -48,6 +48,8 @@ const NAMED_IMPORT_PATTERN_OF = className =>
 
 const TEMPLATE_PATTERN = /<template>(?<body>[\s\S]*)<\/template>/u
 
+const HTML_COMMENT_PATTERN = /<!--[\s\S]*?-->/gu
+
 const CONTEXT_MEMBER_PATTERN = /\bcontext\s*\.\s*(?<member>[A-Za-z0-9_$]+)/gu
 
 const PROPERTY_ASSIGNMENT_PATTERN = /^\s*this\.(?<name>[A-Za-z0-9_$]+)\s*=/gmu
@@ -279,10 +281,13 @@ const checked = componentPaths
       return null
     }
 
-    const templateBody = source.match(TEMPLATE_PATTERN)
-      ?.groups
-      ?.body
-      ?? ''
+    const templateBody = (
+      source.match(TEMPLATE_PATTERN)
+        ?.groups
+        ?.body
+        ?? ''
+    )
+      .replace(HTML_COMMENT_PATTERN, '')
 
     const memberNames = new Set([
       ...extractInheritedMemberNames({

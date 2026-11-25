@@ -46,7 +46,78 @@ this skill was written.
 | `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'bottom'` | Which edge of the trigger the menu opens against. |
 | `align` | `'start' \| 'center' \| 'end'` | `'start'` | How the menu aligns along that edge. |
 | `sideOffset` | `number` | `4` | Gap between trigger and menu, in rem-equivalent pixels. |
+| `preventCloseAutoFocus` | `boolean` | `false` | When `true`, focus stays where the option handler left it (for example a text editor) instead of returning to the trigger when the menu closes. |
 | `options` | `Array<FuroDropdownMenuOption>` | `[]` | Declarative menu rows. |
+
+## `FuroDropdownMenuOption` fields
+
+| Field | Type | Notes |
+| --- | --- | --- |
+| `label` | `string` | Visible row label. |
+| `value` | `string` | Stable identifier your handler reads from the emitted payload. |
+| `disabled` | `boolean` | Non-interactive row. Neither `option:select` nor `option:checked-change` fires for it. On a submenu row it disables the submenu trigger. |
+| `separator` | `boolean` | Renders a separator line instead of a row. Other fields are ignored. |
+| `variant` | `'default' \| 'destructive'` | `'destructive'` styles an action or checkbox row for a delete-type action. See [Destructive rows](#destructive-rows). |
+| `type` | `'action' \| 'checkbox' \| 'submenu'` | Row kind. Omit for an action row. |
+| `checked` | `boolean` | Checkbox row only. The checked state, owned by the parent. |
+| `keepOpen` | `boolean` | Action row only. Keeps the menu open after the row is selected. |
+| `options` | `Array<FuroDropdownMenuOption>` | Nested rows for `type: 'submenu'`. A `'submenu'` row without an `options` array renders as a plain action row. |
+
+Row kind is resolved in this order, so the first match wins: `separator: true`,
+then `type: 'submenu'` with an `options` array, then `type: 'checkbox'`, then
+an action row.
+
+- An action row closes the menu on select unless `keepOpen: true`.
+- A checkbox row never closes the menu. It does not flip itself: it emits
+  `option:checked-change` and shows whatever `checked` you pass back in
+  `parcel.options`.
+- Give every selectable row a `value`. The handler reads
+  `payload.option.value`, and a row without one cannot be told apart.
+- The `option:select` payload is a `DropdownMenuOptionSelectEmitPayload`
+  holding `option` (the row you passed), `rawEvent`, `controlElement`, and
+  `isDefaultPrevented()`.
+
+## Destructive rows
+
+`variant: 'destructive'` changes only the look. The row text takes the
+destructive text color, and a highlighted row switches to the destructive
+background with its foreground color. It adds no confirmation step and no
+extra event, so a delete action still arrives through `option:select`. Open a
+confirmation through `hof-cp-dialog` from the handler when the action cannot
+be undone. A submenu row ignores `variant`.
+
+```js
+{ label: 'Delete', value: 'delete', variant: 'destructive' }
+```
+
+## Keyboard and ARIA
+
+From the underlying primitive (Reka UI 2.11.0, the version furo-vue 2.1.0
+declares), through the public component:
+
+| Key | Where | Effect |
+| --- | --- | --- |
+| `Enter`, `Space`, `ArrowDown` | Focused trigger | Opens the menu. |
+| `ArrowDown`, `ArrowUp` | Open menu | Moves focus between rows. |
+| `Home`, `PageUp` / `End`, `PageDown` | Open menu | Focuses the first / last row. |
+| `Enter`, `Space` | Focused row | Selects it (an action row emits `option:select`, a checkbox row toggles). |
+| `ArrowRight` | Focused submenu row | Opens the submenu (`ArrowLeft` in a right-to-left page). |
+| `ArrowLeft` | Inside a submenu | Closes the submenu and returns to its row (`ArrowRight` in a right-to-left page). |
+| A character key | Open menu | Moves focus to the next row whose text starts with it (typeahead). |
+| `Escape` | Open menu | Closes the menu. |
+
+| Element | ARIA |
+| --- | --- |
+| Trigger | `aria-haspopup="menu"` from Furo, `aria-expanded` from the primitive. |
+| Menu | `role="menu"`, `aria-orientation="vertical"`. |
+| Action row | `role="menuitem"`. |
+| Checkbox row | `role="menuitemcheckbox"` with `aria-checked`. |
+| Submenu row | `aria-haspopup="menu"`, `aria-expanded`, `aria-controls`. |
+
+Disabled rows are skipped by keyboard navigation and emit nothing, so a caller
+needs no extra guard. Furo adds no ARIA attribute beyond the trigger's
+`aria-haspopup`, so a trigger that holds only an icon needs its own accessible
+name inside the `#trigger` slot (visually hidden text, for example).
 
 ## Events
 

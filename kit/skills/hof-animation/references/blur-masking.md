@@ -9,8 +9,8 @@ When a crossfade between two states looks off no matter which easing or duration
 ```css
 .unit-button > .content {
   transition:
-    filter 0.2s var(--transition-timing-ease-out),
-    opacity 0.2s var(--transition-timing-ease-out);
+    filter 0.2s var(--transition-easing-out),
+    opacity 0.2s var(--transition-easing-out);
 }
 
 .unit-button > .content.is-transitioning {
@@ -23,7 +23,7 @@ Pair it with press feedback so the whole interaction feels cohesive:
 
 ```css
 .unit-button {
-  transition: transform 0.16s var(--transition-timing-ease-out);
+  transition: transform 0.16s var(--transition-easing-out);
 }
 
 .unit-button:active {

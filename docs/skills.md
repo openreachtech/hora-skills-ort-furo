@@ -19,7 +19,7 @@ Each skill lives at `kit/skills/<name>/`, directly under the skills directory, a
 
 ### Components
 
-The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `1.4.0`, `1.5.0` and `1.6.0`. `hof-cp-dialog`, `hof-cp-dropdown-menu`, `hof-cp-select`, `hof-cp-toast`, `hof-cp-toggle-group` and `hof-lib-tokens` mark where `1.4.0` and `1.5.0` behave differently with a *Before 1.5.0* / *From 1.5.0* note. `hof-lib-tokens`, `hof-cp-empty-state` and `hof-cp-table` name the text colours that moved in `1.6.0`, and the colour each read before.
+The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `1.4.0`, `1.5.0` and `1.6.0`. `hof-cp-dialog`, `hof-cp-dropdown-menu`, `hof-cp-select`, `hof-cp-toast`, `hof-cp-toggle-group` and `hof-lib-tokens` mark where `1.4.0` and `1.5.0` behave differently with a *Before 1.5.0* / *From 1.5.0* note. `hof-lib-tokens`, `hof-cp-empty-state` and `hof-cp-table` name the text colours that moved in `1.6.0`, and the colour each read before. `hof-cp-badge`, `hof-cp-skeleton` and `hof-cp-radio` were written from `2.1.0` and not checked against earlier versions.
 
 | Skill | Summary |
 | :-- | :-- |
@@ -32,7 +32,7 @@ The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `
 | `hof-cp-date-time` | A date and/or time selection control. Routes to `FuroDatePicker`, `FuroTimeField`, `FuroDateTimePicker`, and shows a timestamp in the viewer's time zone. |
 | `hof-cp-editor` | A rich-text editing area — WYSIWYG field, comment editor, chat composer with mentions. Routes to `FuroEditor`. |
 | `hof-cp-editable-field` | An inline click-to-edit value display. Routes to `FuroEditableField`. |
-| `hof-cp-control-block` | Wraps a form field with a label, hint, required marker or validation error message. Routes to `FuroControlBlock`. |
+| `hof-cp-control-block` | Wraps a form field with a label, required marker or validation error message. Routes to `FuroControlBlock`. |
 | `hof-cp-table` | Tabular data with row selection and sorting, plus its page-navigation companion. Routes to `FuroTable`, `FuroPagination`. |
 | `hof-cp-tabs` | Tabbed regions and segmented-control navigation. Routes to `FuroTabs`. |
 | `hof-cp-stepper` | A multi-step flow indicator — wizard progress, multi-step form, checkout steps. Routes to `FuroStepper`. |
@@ -43,6 +43,9 @@ The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `
 | `hof-cp-toast` | A transient notification — success/error snackbar shown after an action. Routes to `FuroToast`, `FuroToaster`. |
 | `hof-cp-empty-state` | A placeholder for a region with no records, or one that failed to load and can be retried. Routes to `FuroEmptyState`, `FuroErrorState`. |
 | `hof-cp-splitter` | Resizable side-by-side panes, a styled scrollable container, or a divider line. Routes to `FuroSplitter`, `FuroScrollArea`, `FuroSeparator`. |
+| `hof-cp-badge` | A small label for a record's state or a count (status badge, count badge, status dot). Routes to `FuroBadge`. |
+| `hof-cp-skeleton` | A shimmering placeholder shown while content loads (text line, avatar circle, card block). Routes to `FuroSkeleton`. |
+| `hof-cp-radio` | Choosing exactly one option from a short visible list (radio group). Routes to `FuroRadio`. |
 
 ### Style
 
@@ -59,7 +62,7 @@ The component skills, and `hof-lib-tokens`, describe `@openreachtech/furo-vue` `
 | `hof-css-z-index` | The three layer base values and the `calc()` notation. |
 | `hof-layout-margin` | Spacing in Flex/Grid is the container's responsibility; layout items carry no margin. Even spacing uses `gap`, exceptions are owned from the parent. |
 | `hof-selector-props-sort` | Property ordering (Outer-to-Inner Order) — categorize by what the property applies to and order outer to inner, alphabetically within a group. |
-| `hof-animation` | UI animation conventions — whether and why an element animates, easing from the `--transition-timing-*` tokens, and the entry/popover/tooltip/blur techniques that keep motion responsive. |
+| `hof-animation` | UI animation conventions: whether and why an element animates, easing from the `--transition-easing-*` tokens, and the entry/popover/tooltip/blur techniques that keep motion responsive. |
 | `hof-lib-tokens` | Re-theming the component library's own semantic tokens from a consumer app: the published prefixes, the two border tiers, the intent roles, the text roles and the easing tokens. |
 
 ### API clients

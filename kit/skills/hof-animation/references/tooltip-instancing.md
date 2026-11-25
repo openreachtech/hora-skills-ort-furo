@@ -14,8 +14,8 @@ Gate the transition on an `instant` flag set by the tooltip controller:
   opacity: 0;
   transform-origin: var(--popper-transform-origin, bottom center);
   transition:
-    transform 0.125s var(--transition-timing-ease-out),
-    opacity 0.125s var(--transition-timing-ease-out);
+    transform 0.125s var(--transition-easing-out),
+    opacity 0.125s var(--transition-easing-out);
 }
 
 .unit-tooltip > .bubble.is-shown {

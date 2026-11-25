@@ -99,7 +99,7 @@ this skill was written.
 | --- | --- | --- |
 | `change-value` | `SelectEmitPayload` | Fired on selection. |
 | `commit-value` | `SelectEmitPayload` | Same gesture as `change-value`; selection is the commit point. |
-| `update:value` | `string \| number \| object \| null` | Primary selected value; first selected value for multi-select. |
+| `update:value` | `string \| number \| object \| Array<string \| number \| object> \| null` | Selected value; for multi-select, the array of every selected value (`[]` when none is selected). |
 
 ### FuroAutocompleteField
 
@@ -138,6 +138,22 @@ fires at the selection point.
 | `empty` | `{ searchKeyword, loading }` | Shown when the filtered list is empty and not loading; defaults to `emptyText`. |
 | `loading` | `{ searchKeyword }` | Spinner shown in the list. |
 | `create-option` | `{ searchKeyword }` | `createOptionText` with `{keyword}` replaced; shown only when `creatable` and no exact match. |
+
+## Option values
+
+Never give a `FuroSelect` option the value `''` (an empty string). The
+underlying Reka UI select item (2.11.0, the version furo-vue 2.1.0 declares)
+throws `A <SelectItem /> must have a value prop that is not an empty string`
+when it is created, because the select reserves `''` for clearing the selection
+and showing the placeholder. `FuroSelect` passes `option.value` straight to the
+item (or the result of `parcel.optionValue`), so `{ label: 'None', value: '' }`
+reaches that check unchanged. A missing or `null` value becomes `null`, which
+the item accepts.
+
+For an explicit "None" row, give it a non-empty sentinel such as `'none'` and
+map the sentinel to your own empty value in the Context handler. To start
+with nothing chosen, leave `parcel.value` at its `null` default and set
+`placeholder` instead of adding a row.
 
 ## Fallthrough attributes on `FuroSelect`
 
@@ -261,6 +277,7 @@ export default {
   create-option persistence in the page/component Context
   (`on{Field}SearchKeyword`, `on{Field}CreateOption` style methods), not
   inline in the template.
+- Never give an option the value `''`; see [Option values](#option-values).
 - Put `id` and `aria-*` in `triggerParcel`, the only route to the trigger, and
   keep `name` / `required` / `disabled` on `<FuroSelect>` itself.
 - Pass only the `parcel` keys this skill lists. A component reads the keys it

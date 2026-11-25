@@ -62,11 +62,38 @@ Both take a single `parcel` prop — no other props.
 | `compact` | `boolean` | `false` | Compact density — denser rows, tighter padding, smaller text. |
 | `gridLines` | `boolean` | `false` | Vertical borders between columns. |
 
-`FuroTableColumn` is not further broken out in the manifest as its own table;
-inspecting the component source shows each entry carries at least `field` and
-`label` (label falls back to `field` when omitted), plus optional `align`,
-`sortable`, and `width` — confirm current fields against
-`FuroTableContext.js` if the manifest doesn't expand this type.
+### `FuroTableColumn`
+
+| Field | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `field` | `string` | required | Key into each row record. The `cell` slot's `value` is `row[field]`. |
+| `label` | `string` | `field` | Header text. |
+| `sortable` | `boolean` | `false` | Clicking the header label emits `sort:change`. The sort trigger is the label only, so it does not clash with the resize handle. |
+| `align` | `'start' \| 'center' \| 'end'` | `'start'` | Cell text alignment. |
+| `width` | `string` | none | Initial CSS width such as `'12rem'`. Columns without one share the remaining width equally. |
+
+The `cell` and `header-cell` slots receive this same object as `column`, so a
+branch such as `column.field === 'actions'` reads these fields.
+
+### Loading states
+
+`parcel.loading` draws one of two presentations, chosen by whether `rows`
+already holds records, and the `loading` slot fills both:
+
+| `rows` | Where the `loading` slot renders | Slot fallback |
+| --- | --- | --- |
+| Empty | A state row inside the table body, spanning every column | A spinner icon |
+| Not empty | A floating overlay above the whole table, with a backdrop | A spinner icon |
+
+A first load therefore never dims an empty table, and a refresh keeps its
+rows. Put markup in the slot that suits both places (a short message or
+spinner), because one slot serves the row and the overlay. State precedence is
+error, then loading, then empty, then rows.
+
+While `loading` is `true` in either presentation, the scroll region is
+`inert` and the table root carries `aria-busy="true"`. Row checkboxes,
+sortable headers, resize handles and any control you put in a `cell` slot stop
+answering pointer and keyboard until `loading` clears.
 
 ### FuroPagination
 
