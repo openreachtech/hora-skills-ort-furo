@@ -11,56 +11,7 @@ entries limited the review.
 
 ## Schema
 
-```markdown
-# Acceptance Context
-
-## Purpose
-One or two lines: what the app is for, and what a user comes here to get done.
-
-## Roles
-| Role | May reach | Must not reach |
-|---|---|---|
-| viewer | … | … |
-| administrator | … | … |
-
-## Credentials for review
-| Role | How to sign in |
-|---|---|
-| viewer | … (an account, or the command that seeds one) |
-| administrator | … |
-
-## Running the app
-- Start: the command, the port it serves on
-- Environment: which env file, which values must point where
-- Dependencies: databases, queues, object stores, other services — and how to tell whether each is up
-- Seed: the command that puts reviewable data in place
-
-## Core flows
-Named, with a start point and a success condition. These are the flows a live pass must complete.
-
-| Flow | Starts at | Succeeds when |
-|---|---|---|
-| … | … | … |
-
-## Entities and expected operations
-| Entity | Create | Read | Update | Delete | Restore | Notes |
-|---|---|---|---|---|---|---|
-| … | ✓ | ✓ | ✓ | ✓ | ✓ | … |
-
-## Deliberately absent from the UI
-An operation the API exposes that no screen reaches on purpose. **A row without a reason is not an
-exclusion — it is an oversight that has been written down.**
-
-| Operation | Reason |
-|---|---|
-| … | … |
-
-## Out of scope for this review
-What not to audit, and why.
-
-## Known and accepted
-Defects already agreed to live with, so a review does not report them as new each time.
-```
+The skill ships the file as `templates/acceptance-context.md`. Copy it into place and fill it.
 
 ## Rules
 
