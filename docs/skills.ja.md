@@ -19,7 +19,7 @@
 
 ### コンポーネント
 
-コンポーネントのスキルと `hof-lib-tokens` は `@openreachtech/furo-vue` `1.4.0`・`1.5.0`・`1.6.0` を前提にしています。`1.4.0` と `1.5.0` で挙動が異なる箇所は、`hof-cp-dialog`・`hof-cp-dropdown-menu`・`hof-cp-select`・`hof-cp-toast`・`hof-cp-toggle-group`・`hof-lib-tokens` が *Before 1.5.0* / *From 1.5.0* の注記で示します。`1.6.0` で変わったテキストの色は、`hof-lib-tokens`・`hof-cp-empty-state`・`hof-cp-table` が、移動前の色と合わせて示します。
+コンポーネントのスキルと `hof-lib-tokens` は `@openreachtech/furo-vue` `1.4.0`・`1.5.0`・`1.6.0` を前提にしています。`1.4.0` と `1.5.0` で挙動が異なる箇所は、`hof-cp-dialog`・`hof-cp-dropdown-menu`・`hof-cp-select`・`hof-cp-toast`・`hof-cp-toggle-group`・`hof-lib-tokens` が *Before 1.5.0* / *From 1.5.0* の注記で示します。`1.6.0` で変わったテキストの色は、`hof-lib-tokens`・`hof-cp-empty-state`・`hof-cp-table` が、移動前の色と合わせて示します。`hof-cp-badge`・`hof-cp-skeleton`・`hof-cp-radio` は `2.1.0` を元に書いており、それより前のバージョンとの照合はしていません。
 
 | スキル | 概要 |
 | :-- | :-- |
@@ -43,6 +43,9 @@
 | `hof-cp-toast` | 一時的な通知(成功/失敗のスナックバー、操作後のメッセージ)。`FuroToast`・`FuroToaster` へ振り分けます。 |
 | `hof-cp-empty-state` | レコードがない領域のプレースホルダー、または読み込みに失敗して再試行できる領域の表示。`FuroEmptyState`・`FuroErrorState` へ振り分けます。 |
 | `hof-cp-splitter` | サイズ変更できる左右のペイン、装飾付きスクロール領域、区切り線。`FuroSplitter`・`FuroScrollArea`・`FuroSeparator` へ振り分けます。 |
+| `hof-cp-badge` | レコードの状態や件数を示す小さなラベル(ステータスバッジ、件数バッジ、ステータスドット)。`FuroBadge` へ振り分けます。 |
+| `hof-cp-skeleton` | 読み込み中に表示するシマー付きのプレースホルダー(テキスト行、アバターの円、カード領域)。`FuroSkeleton` へ振り分けます。 |
+| `hof-cp-radio` | 短い一覧から必ず 1 つを選ぶ(ラジオグループ)。`FuroRadio` へ振り分けます。 |
 
 ### スタイル
 
