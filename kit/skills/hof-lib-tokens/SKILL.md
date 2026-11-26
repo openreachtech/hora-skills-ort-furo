@@ -132,15 +132,16 @@ each.
 
 ## Easing
 
-`--transition-timer` is the one name for the transition **time** axis. Two
-easing tokens sit beside it:
+The library publishes two tokens on the transition **time** axis:
 
-| Token | For |
-| --- | --- |
-| `--transition-easing` | The default curve |
-| `--transition-easing-emphasized` | A large surface entering or leaving |
+| Token | Default | For |
+| --- | --- | --- |
+| `--transition-timer` | `0.2s` | Every component transition |
+| `--transition-timer-spin` | `0.75s` | One turn of a loading spinner |
 
-Neither is redefined for the dark theme — a curve carries no colour.
+It publishes no easing token. The project declares `--transition-easing-in`,
+`--transition-easing-out` and `--transition-easing-in-out` in
+`assets/css/variables.css`, with the curves `hof-animation` gives.
 
 ## Control size tokens
 

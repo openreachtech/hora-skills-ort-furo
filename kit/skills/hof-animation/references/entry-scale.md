@@ -17,8 +17,8 @@ Nothing in the real world shrinks to nothing and pops back into existence. An el
   transform: scale(0.95);
   opacity: 0;
   transition:
-    transform 0.18s var(--transition-timing-ease-out),
-    opacity 0.18s var(--transition-timing-ease-out);
+    transform 0.18s var(--transition-easing-out),
+    opacity 0.18s var(--transition-easing-out);
 }
 
 .unit-card > .badge.is-shown {

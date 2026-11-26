@@ -17,7 +17,7 @@ The first word right after `--` is the **top prefix**. From the prefix you can t
 | `--color-*` | Semantic colors. Named by their use | `--color-primary`, `--color-text` |
 | `--size-*` | Dimensions. Length / width / height | `--size-header-height` |
 | `--value-*` | Unitless scalars. Ratios and base values | `--value-golden-ratio` |
-| `--motion-*` | The time axis of transition / animation. duration, easing, delay | `--motion-duration-base`, `--motion-easing-standard` |
+| `--transition-*` | The time axis of transition / animation. duration, easing, delay | `--transition-timer`, `--transition-easing-out` |
 
 Top prefixes are **added as needed**. The four above are not a fixed set. When a new kind is needed, do not force it
 into an existing prefix — stand up a new prefix. The set of prefixes stays open; the convention itself is the

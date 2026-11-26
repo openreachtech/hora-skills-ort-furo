@@ -64,4 +64,45 @@ describe('find-unused-operations.mjs', () => {
         .toContain('OnUnreachedThingGraphqlSubscriber')
     })
   })
+
+  describe('should report a missing declaration as missing', () => {
+    const cases = [
+      {
+        input: { fixtureName: 'no-declaration' },
+        expected: {
+          notice: 'DECLARATION MISSING: ai/contexts/acceptance-context.md',
+          summary: 'UNREACHED OPERATIONS: 2   EXCLUDED: NOT READ   STALE: 0   OPERATIONS: 4',
+        },
+      },
+    ]
+
+    test.each(cases)('$input.fixtureName', ({ input, expected }) => {
+      const received = String(
+        spawnSync('node', [scriptPath, `${fixturesPath}${input.fixtureName}`])
+          .stdout
+      )
+
+      expect(received)
+        .toContain(expected.notice)
+      expect(received)
+        .toContain(expected.summary)
+    })
+  })
+
+  describe('should not report a declaration with an empty table as missing', () => {
+    const cases = [
+      { input: { fixtureName: 'both-kinds' } },
+    ]
+
+    test.each(cases)('$input.fixtureName', ({ input }) => {
+      const received = String(
+        spawnSync('node', [scriptPath, `${fixturesPath}${input.fixtureName}`])
+          .stdout
+      )
+
+      expect(received)
+        .not
+        .toContain('DECLARATION MISSING')
+    })
+  })
 })

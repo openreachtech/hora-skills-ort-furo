@@ -28,7 +28,7 @@ this skill was written.
 - Content must block the whole page or demand an explicit decision → use `hof-cp-dialog` (`FuroDialog` / `FuroAlertDialog`), not a modal `FuroPopover`.
 - Needs a persistent side panel → use `hof-cp-dialog` (`FuroDrawer`).
 - Plain collapsible section inline in the page flow (no floating/anchored positioning) → use `hof-cp-collapsible`.
-- Just want a static text hint with no hover behavior (e.g. always-visible helper text next to a field) → use `hof-cp-control-block`'s hint area, not `FuroTooltip`.
+- Just want a static text hint with no hover behavior (e.g. always-visible helper text next to a field) → render it as plain markup beside the field (`FuroControlBlock` has no hint area, see `hof-cp-control-block`), not `FuroTooltip`.
 
 ## Props
 
